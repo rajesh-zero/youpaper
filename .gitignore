@@ -1,5 +1,6 @@
 #https://github.com/github/gitignore/blob/master/Python.gitignore   gitignore boiler plate
 __pycache__/
+static/
 *.log
 local_settings.py
 db.sqlite3
