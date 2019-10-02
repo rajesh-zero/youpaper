@@ -15,13 +15,15 @@ def register(request):
 
 def loguserin(request):
 
-    emailid = request.POST['email']     #This is valid
-    #emailid = request.POST.get('email','mera mail')    #this is also valid
-    password = request.POST['password']
-    rememberme = request.POST.get('remember','off') # returns 0n or off for checkbox by default
-    if rememberme == 'on':
-        pass
-    #print(emailid," ",password," ",rememberme)
+    emailid = request.POST.get('email')  
+    password = request.POST.get('password')   
+    #rememberme = request.POST.get('remember','off') # returns 0n or off for checkbox by default
+    # if rememberme == 'on':
+    #     pass
+    u = users.objects.get(user_email=emailid) #here was an error for that install pip install pylint-django
+    if u.user_password == password:
+        return HttpResponse("login successful")
+
 
     return render(request,'userprofile/profile.html',{'email':emailid,'password':password}) # calling profile page of userprofile application
 
@@ -36,7 +38,7 @@ def loguserin(request):
     # return render(request,'login/register.html',{'register':"registered"})
 def registered(request):
 
-    if request.method=='POST':
+    if request.method == 'POST':
         emailid = request.POST.get('email')    
         name = request.POST.get('name')   
         password = request.POST.get('password')   
