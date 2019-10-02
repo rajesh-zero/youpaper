@@ -11,8 +11,12 @@ class users(models.Model):
     user_name = models.CharField(max_length=100)
     user_gender = models.CharField(max_length=1,default="")
     user_mobile = models.CharField(max_length=70, default="")
+    user_image = models.ImageField(upload_to="login/userimage",default="")
     user_dob = models.DateField()
     user_description = models.CharField(max_length=300,default="")
+
+    def __str__(self): # so that it displays email in admin objects
+        return self.user_email
 
 
 
