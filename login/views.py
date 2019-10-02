@@ -23,3 +23,13 @@ def loguserin(request):
     #print(emailid," ",password," ",rememberme)
 
     return render(request,'userprofile/profile.html',{'email':emailid,'password':password}) # calling profile page of userprofile application
+
+def registered(request):
+
+    # emailid = request.POST.get('email','mera mail')    #this is also valid
+    # password = request.POST.get('password','mera mail')   
+    # password = request.POST.get('name')   
+
+
+
+    return render(request,'login/register.html',{'register':"registered"})
