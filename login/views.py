@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from login.models import users
 # Create your views here.
 
 # def login(request):
@@ -24,7 +25,7 @@ def loguserin(request):
 
     return render(request,'userprofile/profile.html',{'email':emailid,'password':password}) # calling profile page of userprofile application
 
-def registered(request):
+# def registered(request):
 
     # emailid = request.POST.get('email','mera mail')    #this is also valid
     # password = request.POST.get('password','mera mail')   
@@ -32,4 +33,15 @@ def registered(request):
 
 
 
-    return render(request,'login/register.html',{'register':"registered"})
+    # return render(request,'login/register.html',{'register':"registered"})
+def registered(request):
+
+    if request.method=='POST':
+        emailid = request.POST.get('email')    
+        name = request.POST.get('name')   
+        password = request.POST.get('password')   
+        user = users(user_email=emailid,user_password=password,user_name=name)
+        user.save()
+        return HttpResponse("<script>alert('registered successfully')</script>")
+    else:
+        return HttpResponse("<script>alert('something went wrong')</script>")
