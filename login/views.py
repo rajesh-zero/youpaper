@@ -6,14 +6,14 @@ from login.models import User
 
 def login(request):
     """
-    stupid thing to disable pylint warning
+    takes you to login page
     """
     return render(request, 'login/login.html')
 
 
 def register(request):
     """
-    stupid thing to disable pylint warning
+    takes you to register page
     """
     return render(request, 'login/register.html')
 
@@ -35,9 +35,9 @@ def loguserin(request):
 
     if user_data.user_password == password:
         return HttpResponse("login successful")
-    return HttpResponse("<script>alert('something went wrong')</script>")
+    return HttpResponse("<script>alert('username or password incorrect')</script>")
 
-    #return render(request, 'userprofile/profile.html', {'email': emailid, 'password':password}) 
+    #return render(request, 'userprofile/profile.html', {'email': emailid, 'password':password})
     # calling profile page of userprofile application
 
 def registered(request):
