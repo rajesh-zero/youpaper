@@ -3,13 +3,15 @@ from django.db import models
 
 # Create your models here.
 
-""" to check sql query it will fire run command python manage.py sqlmigrate
-login 0001 and to commit that run python manage.py migrate"""
+"""
+to check sql query it will fire run command python manage.py sqlmigrate
+login 0001 and to commit that run python manage.py migrate
+"""
 
 #create super user by running python manage.py createsuperuser
 #below line added to remove pylint error
 #pylint:disable=invalid-name
-class Users(models.Model):
+class User(models.Model):
     '''doc string'''
     user_id = models.AutoField(primary_key=True)
     user_email = models.CharField(max_length=100)
