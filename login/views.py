@@ -1,29 +1,27 @@
-'''views.py for login '''
+"""views.py for login """
 from django.shortcuts import render
 from django.http import HttpResponse
 from login.models import users
 # Create your views here.
 
-# def login(request):
-#     return HttpResponse("login page")
 def login(request):
-    '''
+    """
     stupid thing to disable pylint warning
-    '''
+    """
     return render(request, 'login/login.html')
 
 
 def register(request):
-    '''
+    """
     stupid thing to disable pylint warning
-    '''
+    """
     return render(request, 'login/register.html')
 
 
 def loguserin(request):
-    '''
+    """
     stupid thing to disable pylint warning
-    '''
+    """
     emailid = request.POST.get('email')
     password = request.POST.get('password')
     user_data = users.objects.get(user_email=emailid) 
@@ -33,15 +31,10 @@ def loguserin(request):
     return render(request, 'userprofile/profile.html', {'email': emailid, 'password':password}) 
     # calling profile page of userprofile application
 
-# def registered(request):
-    # emailid = request.POST.get('email','mera mail')    #this is also valid
-    # password = request.POST.get('password','mera mail')   
-    # password = request.POST.get('name')
-    # return render(request,'login/register.html',{'register':"registered"})
 def registered(request):
-    '''
+    """
     stupid thing to disable pylint warning
-    '''
+    """
     if request.method == 'POST':
         emailid = request.POST.get('email')
         name = request.POST.get('name')

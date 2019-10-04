@@ -1,7 +1,7 @@
-'''doc string uncomment below import when needed'''
+"""userprofile apps.py file"""
 from django.apps import AppConfig
 
 
 class UserprofileConfig(AppConfig):
-    '''doc string'''
+    '''UserprofileConfig'''
     name = 'userprofile'

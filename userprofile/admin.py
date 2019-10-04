@@ -1,4 +1,4 @@
-'''doc string uncomment below import when needed'''
-#from django.contrib import admin
+"""userprofile admin.py"""
+from django.contrib import admin
 
 # Register your models here.
