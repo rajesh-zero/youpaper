@@ -8,6 +8,7 @@
     {% load static %}
     <link rel="stylesheet" href="{%static 'bootstrap/css/bootstrap.min.css'%}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typed.js"></script>
 </head>
 <body>
 <div>
@@ -16,7 +17,6 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -43,18 +43,20 @@
         </li>
         </ul>
         </div>
-        
-        
-        
     </div>
     </nav>
 </div>
 
+<!-- main body starting from here-->
+    <br>
+    <div class='container'>
+    <div class="form-group">
+        <h1><span id="typed"></span></h1>
+    </div>
+    </div>
 
-<div class='container'>
-<br>
-<h1>Welcome to the most awesome site in the World</h1>
-</div>
+<!-- <div id="typed-strings">
+  </div> -->
 
 
 
@@ -63,5 +65,17 @@
     <script src="{%static 'bootstrap/js/jquery-3.3.1.slim.min.js'%}"></script>
     <script src="{%static 'bootstrap/js/popper.min.js'%}"></script>
     <script src="{%static 'bootstrap/js/bootstrap.min.js'%}"></script>
+    
+    <script>
+     var typed = new Typed('#typed',{
+                    strings:["Welcome to the most awesome site in the World!","Sign up to explore!"],
+                    backSpeed: 15,
+                    smartBackspace: true,
+                    backDelay: 1200,
+                    startDelay: 1000,
+                    typeSpeed: 25,
+                    loop: true,
+                  });
+    </script>
 </body>
 </html>
