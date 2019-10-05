@@ -1,5 +1,5 @@
 """views.py for login """
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from login.models import User
 # Create your views here.
@@ -41,8 +41,6 @@ def loguserin(request):
         if user_data.user_password == password:
             request.session['user_email'] = emailid
             return redirect('/')
-            #return render(request, 'home.html')
-            #return HttpResponse("login successful")
         return HttpResponse("<script>alert('username or password incorrect')</script>")
     except User.DoesNotExist:
         return HttpResponse("<script>alert('User not found')</script>")
