@@ -1,5 +1,5 @@
 """views.py for login """
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from login.models import User
 # Create your views here.
@@ -9,6 +9,12 @@ def login(request):
     takes you to login page
     """
     return render(request, 'login/login.html')
+
+def logout(request):
+    """logout function"""
+    request.session['user_email'] = ''
+    #return render(request, 'home.html')
+    return redirect('/')
 
 
 def register(request):
@@ -30,7 +36,10 @@ def loguserin(request):
     try:
         user_data = User.objects.get(user_email=emailid)
         if user_data.user_password == password:
-            return HttpResponse("login successful")
+            request.session['user_email'] = emailid
+            return redirect('/')
+            #return render(request, 'home.html')
+            #return HttpResponse("login successful")
         return HttpResponse("<script>alert('username or password incorrect')</script>")
     except User.DoesNotExist:
         return HttpResponse("<script>alert('User not found')</script>")

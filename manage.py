@@ -5,6 +5,7 @@ import sys
 
 
 def main():
+    """ manage.py main function"""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'youpaper.settings')
     try:
         from django.core.management import execute_from_command_line

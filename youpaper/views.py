@@ -5,7 +5,8 @@ from django.http import HttpResponse
 
 def home(request):
     '''doc string'''
-    return render(request, 'home.html')
+    home_data = {'session_email' : (request.session['user_email'])}
+    return render(request, 'home.html', home_data)
 def contactus(request):
     '''doc string'''
     return HttpResponse("contact us")
