@@ -8,12 +8,13 @@ def login(request):
     """
     takes you to login page
     """
+    if request.session['user_email'] != '':
+        return redirect('/')
     return render(request, 'login/login.html')
 
 def logout(request):
     """logout function"""
     request.session['user_email'] = ''
-    #return render(request, 'home.html')
     return redirect('/')
 
 
@@ -21,6 +22,8 @@ def register(request):
     """
     takes you to register page
     """
+    if request.session['user_email'] != '':
+        return redirect('/')
     return render(request, 'login/register.html')
 
 

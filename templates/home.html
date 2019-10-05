@@ -34,8 +34,9 @@
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        if
-        {% if session_email == '' %}
+        <!--accessing session request.session.user_email value by executing below command-->
+        {% if request.session.user_email == '' %} 
+
         <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" href="/login/register/"><span class="fa fa-sign-out"></span>Sign Up</a>
@@ -44,12 +45,22 @@
             <a class="nav-link" href="/login/"><span class="fa fa-sign-in"></span>Login</a>
         </li>
         </ul>
+
         {% else %}
+
         <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="/login/logout/"><span class="fa fa-sign-out"></span>Logout</a>
-        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{request.session.user_email}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Profile Page</a>
+          <a class="dropdown-item" href="#">Terms Of Service</a>
+          <a class="dropdown-item" href="/login/logout/"><span class="fa fa-sign-out"></span>Logout</a>
+        </div>
+      </li>
         </ul>
+
         {% endif %}
         
         </div>
@@ -58,15 +69,22 @@
 </div>
 
 <!-- main body starting from here-->
-    <br>
-    <div class='container'>
+<br>
+{% if request.session.user_email == '' %}
+<div class='container'>
     <div class="form-group">
         <h1><span id="typed"></span></h1>
     </div>
-    </div>
+</div>
+{% else %}
+<div>
+    <h1>Hello {{request.session.user_email}}</h1>  
+</div>
+{% endif %}
+    <br>
+    
 
-{{session_email}}
-
+    
 {% block content %}
 
 {% endblock %}
