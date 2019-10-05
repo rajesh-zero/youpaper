@@ -29,13 +29,11 @@ def loguserin(request):
     password = request.POST.get('password')
     try:
         user_data = User.objects.get(user_email=emailid)
+        if user_data.user_password == password:
+            return HttpResponse("login successful")
+        return HttpResponse("<script>alert('username or password incorrect')</script>")
     except User.DoesNotExist:
         return HttpResponse("<script>alert('User not found')</script>")
-
-
-    if user_data.user_password == password:
-        return HttpResponse("login successful")
-    return HttpResponse("<script>alert('username or password incorrect')</script>")
 
     #return render(request, 'userprofile/profile.html', {'email': emailid, 'password':password})
     # calling profile page of userprofile application

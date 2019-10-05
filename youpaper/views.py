@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 def home(request):
     '''doc string'''
-    return render(request ,'home.html')
+    return render(request, 'home.html')
 def contactus(request):
     '''doc string'''
     return HttpResponse("contact us")
