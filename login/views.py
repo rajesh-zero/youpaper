@@ -17,6 +17,10 @@ def logout(request):
     request.session['user_email'] = ''
     return redirect('/')
 
+def test(request):
+    """test function"""
+    return render(request, 'login/test.html')
+
 
 def register(request):
     """
