@@ -25,4 +25,5 @@ urlpatterns = [
     path('aboutus/', views.aboutus , name='aboutus'),
     path('admin/', admin.site.urls),
     path('login/', include('login.urls')),
+    path('ypdb/', include('ypdb.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
