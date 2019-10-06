@@ -4,4 +4,5 @@ from . import views
 
 urlpatterns = [
     path('', views.homeredirect, name="home redirect"),
+    path('insertindb/', views.insertindb, name="get data in database"),
 ]

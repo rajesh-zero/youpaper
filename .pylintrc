@@ -62,6 +62,7 @@ confidence=
 # --disable=W".
 disable=print-statement,
         unused-import,
+        line-too-long,
         pointless-string-statement,
         parameter-unpacking,
         unpacking-in-except,
