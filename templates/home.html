@@ -139,24 +139,36 @@
    <h3 class="pb-3 mb-4 font-italic border-bottom">
       Find awesomeness below
    </h3>
-   {% for i in '0123456789'|make_list %}
-   <div class="row">
-   {% for i in '012345'|make_list %}
 
-      <div class="col-md-2">
+<div>
+<div>
+    <div class = 'row'>
+    {% for obj in datas|slice:"0:" %}
+        <div class="col-md-2">
          <div class="card mb-2">
-            <img class="card-img-top "  src="https://m.media-amazon.com/images/M/MV5BODcxMzY3ODY1NF5BMl5BanBnXkFtZTgwNzg1NDY4MTE@._V1_SX300.jpg
-" alt="Card image cap">
+            <img class="card-img-top "  src="{{obj.ypdb_poster}}" alt="Card image cap">
             <div class="card-body">
-               <h5 class="card-title">Lucy</h5>
+               <h5 class="card-title">{{obj.ypdb_title}}</h5>
               <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>--> 
                <a href="#" class="btn btn-outline-dark btn-sm">Read more</a>
             </div>
          </div>
       </div>
+        <!--<div class='col-md-3'>{{ obj }}</div>-->
+
+    {# if the the forloop counter is divisible by 4, close the <li> tag and open a new one #}
+    {% if forloop.counter|divisibleby:6 %}
+    
+    {% endif %}
+
     {% endfor %}
-   </div>
-   {% endfor %}
+    </div>
+</div>
+</div>
+
+
+
+  
 </div>
 <div>
 
