@@ -9,10 +9,15 @@ from ypdb.models import Ypdb
 
 def home(request):
     """doc string"""
-    if request.session['user_email']:
-        print('if ke andhar hai')
-    else:
+    try:
+        x=request.session['user_email']
+        print(x)
+    except KeyError:
         request.session['user_email'] = ''
+    # if request.session['user_email']:
+    #     print('if ke andhar hai')
+    # else:
+    #     request.session['user_email'] = ''
     datas = Ypdb.objects.filter(~Q(ypdb_poster='N/A'))#to get only records with images
     print(type(datas))
     params = {'datas':datas, 'range':range(6)}
