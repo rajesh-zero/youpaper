@@ -1,7 +1,7 @@
 """doc string"""
 import json
 import requests
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Q
 from ypdb.models import Ypdb
@@ -18,7 +18,7 @@ def home(request):
     #     print('if ke andhar hai')
     # else:
     #     request.session['user_email'] = ''
-    datas = Ypdb.objects.filter(~Q(ypdb_poster='N/A'))#to get only records with images
+    datas = Ypdb.objects.filter(~Q(ypdb_poster='N/A')).order_by('-ypdb_id')#to get only records with images in descending order
     print(type(datas))
     params = {'datas':datas, 'range':range(6)}
     return render(request, 'home.html', params)
@@ -61,7 +61,7 @@ def insertindb(request):
                     ypdb.save()
             except Ypdb.DoesNotExist:
                 pass
-        return HttpResponse('<h1>successful</h1>')
+        return redirect('/')
     elif response == 'False':
         return HttpResponse("<h1>not found</h1>")
     else:
