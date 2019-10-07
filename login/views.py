@@ -38,7 +38,7 @@ def loguserin(request):
     """
     there was an error for that install pip install pylint-django
     """
-    emailid = request.POST.get('email')
+    emailid = request.POST.get('email').lower()
     password = request.POST.get('password')
     try:
         user_data = User.objects.get(user_email=emailid)
@@ -57,12 +57,21 @@ def registered(request):
     This method registers user in database
     """
     if request.method == 'POST':
-        emailid = request.POST.get('email')
+        emailid = request.POST.get('email').lower()
         name = request.POST.get('name')
         password = request.POST.get('password')
-        if emailid != '' and password != '':
-            user = User(user_email=emailid, user_password=password, user_name=name)
-            user.save()
-            return HttpResponse("<script>alert('registered successfully')</script>")
+        try:
+            data_count = User.objects.filter(user_email=emailid).count()
+            if data_count == 1:
+                return HttpResponse("<script>alert('email already exist')</script>")
+            else:
+                if emailid != '' and password != '':
+                    user = User(user_email=emailid, user_password=password, user_name=name)
+                    user.save()
+                    return HttpResponse("<script>alert('registered successfully')</script>")
+                else:
+                    return HttpResponse("<script>alert('something went wrong')</script>")
+        except User.DoesNotExist:
+            pass   
     return HttpResponse("<script>alert('something went wrong')</script>")
     
