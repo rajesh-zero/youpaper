@@ -9,6 +9,9 @@ from ypdb.models import Ypdb
 def homeredirect(request):
     """homeredirect function"""
     return render(request, 'ypdb/insert.html')
+def view(request):
+    """homeredirect function"""
+    return render(request, 'ypdb/view.html')
 
 def insertindb(request):
     """insertinDB function"""
