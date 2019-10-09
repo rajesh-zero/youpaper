@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Q
 from ypdb.models import Ypdb
+from codes.apimethods import search_api
 # Create your views here.
 
 def home(request):
@@ -31,18 +32,12 @@ def aboutus(request):
 def insertindb(request):
     '''doc string'''
     search = request.GET['search']
-    headers = {}
-    headers['s'] = search
-    headers['apikey'] = '16ee2b99'
-    req = requests.get('http://www.omdbapi.com/?', params=headers)
-    parseddata = json.loads(req.text)
+    parseddata = search_api(search)
     print('***************************', parseddata['Response'])
     print(parseddata['Response'] is True)
     response = parseddata['Response']
     if response == 'True':
         listparsed = parseddata['Search']
-        print(headers)
-        print(req.status_code)
         for i in range(0,len(listparsed)):
             datadictionary = {}
             data_count = 0

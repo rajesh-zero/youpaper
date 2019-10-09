@@ -1,23 +1,30 @@
-{% extends 'home.html' %}
+{% extends 'master.html' %}
 {% block content %}
+<div class="container">
+{% if datas is empty %}
+{% endif %}
 <h1>Search results are : </h1>
+
 <div>
     <div class = 'row'>
     {% for obj in datas|slice:"0:" %}
         <div class="col-md-2">
          <div class="card mb-2">
-            <img class="card-img-top "  src="{{obj.ypdb_poster}}" alt="Card image cap">
+            <img class="card-img-top "  src="{{obj.Poster}}" alt="no image">
             <div class="card-body">
-               <h5 class="card-title">{{obj.ypdb_title}}</h5>
-               <a href="/ypdb/view/" class="btn btn-outline-dark btn-sm">Read more</a>
+               <h5 class="card-title">{{obj.Title}}</h5>
+               <a href="/ypdb/view/?t={{obj.Title}}" class="btn btn-outline-dark btn-sm">Read more</a>
             </div>
          </div>
       </div>
+    
     {% if forloop.counter|divisibleby:6 %}
     
     {% endif %}
-
+    {% empty %}
+      <h3>No results found</h3>
     {% endfor %}
     </div>
+</div>
 </div>
 {% endblock %}
