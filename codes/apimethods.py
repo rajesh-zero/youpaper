@@ -3,7 +3,8 @@ import json
 import requests
 
 def search_api(parameter, value):
-    """function for searchapi"""
+    """function for searchapi
+    use syntax variablename_parseddata = search_api('s', search)"""
     headers = {}
     headers[parameter] = value
     headers['apikey'] = '16ee2b99'

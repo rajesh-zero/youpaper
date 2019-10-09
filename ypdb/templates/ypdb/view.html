@@ -5,9 +5,13 @@
 <br>
 <div class='container'>
 
-<h1> Oo stree kal aana </h1>
-<br>
 <a href="/">Go home</a>
+
+{% for key,value in datas.items %}
+<h5>{{key}} : {{value}}</h5>
+{% endfor %}
+
+
 
 </div>
 {% endblock %}

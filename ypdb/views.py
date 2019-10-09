@@ -14,9 +14,11 @@ def homeredirect(request):
 def view(request):
     """homeredirect function"""
     title = request.GET['t']
-    print(title)
+    parseddata = search_api('t', title)
+    params = {'datas':parseddata}
+    #print(parseddata)
 
-    return render(request, 'ypdb/view.html')
+    return render(request, 'ypdb/view.html', params)
 
 def results(request):
     """homeredirect function"""
