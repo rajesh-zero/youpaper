@@ -19,7 +19,7 @@ def home(request):
     #     print('if ke andhar hai')
     # else:
     #     request.session['user_email'] = ''
-    datas = Ypdb.objects.filter(~Q(ypdb_poster='N/A')).order_by('-ypdb_id')#to get only records with images in descending order
+    datas = Ypdb.objects.filter(~Q(ypdb_poster='N/A')).order_by('-ypdb_id')[:20]#to get only last 20records with images in descending order
     print(type(datas))
     params = {'datas':datas, 'range':range(6)}
     return render(request, 'home.html', params)
