@@ -29,35 +29,3 @@ def contactus(request):
 def aboutus(request):
     '''doc string'''
     return HttpResponse("about us")
-def insertindb(request):
-    '''doc string'''
-    search = request.GET['search']
-    parseddata = search_api(search)
-    print('***************************', parseddata['Response'])
-    print(parseddata['Response'] is True)
-    response = parseddata['Response']
-    if response == 'True':
-        listparsed = parseddata['Search']
-        for i in range(0,len(listparsed)):
-            datadictionary = {}
-            data_count = 0
-            for key,value in listparsed[i].items():
-                if key == 'imdbID':
-                    continue
-                datadictionary[key] = value
-            #print(datadictionary)
-            try:
-                data_count = Ypdb.objects.filter(ypdb_title=datadictionary['Title']).count()
-                print(datadictionary['Title']," ", data_count)
-                if data_count == 1:
-                    continue
-                else:
-                    ypdb = Ypdb(ypdb_title=datadictionary['Title'], ypdb_year=datadictionary['Year'], ypdb_type=datadictionary['Type'],       ypdb_poster=datadictionary['Poster'])
-                    ypdb.save()
-            except Ypdb.DoesNotExist:
-                pass
-        return redirect('/')
-    elif response == 'False':
-        return HttpResponse("<h1>not found</h1>")
-    else:
-        return HttpResponse("<h1>something wrong</h1>")

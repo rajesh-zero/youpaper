@@ -26,5 +26,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', include('login.urls')),
     path('ypdb/', include('ypdb.urls')),
-    path('insertindb/', views.insertindb, name="get data in database"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

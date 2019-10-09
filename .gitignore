@@ -9,3 +9,4 @@ db.sqlite3-journal
 .vscode/
 .idea/
 settings.py
+youpaper/settings.py
