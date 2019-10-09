@@ -10,22 +10,25 @@ from codes.apimethods import search_api
 def homeredirect(request):
     """homeredirect function"""
     return render(request, 'ypdb/insert.html')
+
 def view(request):
     """homeredirect function"""
     title = request.GET['t']
     print(title)
+
     return render(request, 'ypdb/view.html')
 
 def results(request):
     """homeredirect function"""
     search = request.GET['search'] #getting search terms from user
-    parseddata = search_api(search)
+    parseddata = search_api('s', search)
     params = {}
     listparsed = [] #for this to be available outside if
     if parseddata['Response'] == 'True':
         listparsed = parseddata['Search'] #filtering search dictionary that contains list of dictionary
         for enum in enumerate(listparsed):
             #print(enum[1])#iterating through enum tuple and selecting values
+            #proud of below try catch and if elif  made very short logic instead of before insertdb
             try:
                 if Ypdb.objects.filter(ypdb_title=enum[1]['Title']).count() == 1:
                     continue
