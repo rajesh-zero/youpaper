@@ -12,6 +12,9 @@ def homeredirect(request):
 def view(request):
     """homeredirect function"""
     return render(request, 'ypdb/view.html')
+def results(request):
+    """homeredirect function"""
+    return render(request, 'ypdb/results.html')
 
 def insertindb(request):
     """insertinDB function"""

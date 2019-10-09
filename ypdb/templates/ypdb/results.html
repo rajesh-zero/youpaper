@@ -1,0 +1,23 @@
+{% extends 'home.html' %}
+{% block content %}
+<h1>Search results are : </h1>
+<div>
+    <div class = 'row'>
+    {% for obj in datas|slice:"0:" %}
+        <div class="col-md-2">
+         <div class="card mb-2">
+            <img class="card-img-top "  src="{{obj.ypdb_poster}}" alt="Card image cap">
+            <div class="card-body">
+               <h5 class="card-title">{{obj.ypdb_title}}</h5>
+               <a href="/ypdb/view/" class="btn btn-outline-dark btn-sm">Read more</a>
+            </div>
+         </div>
+      </div>
+    {% if forloop.counter|divisibleby:6 %}
+    
+    {% endif %}
+
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
