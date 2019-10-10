@@ -47,11 +47,11 @@ def loguserin(request):
             request.session['user_email'] = emailid
             return redirect('/')
         messages.info(request, 'username or password incorrect')
-        return HttpResponseRedirect('/login/register/')
+        return HttpResponseRedirect('/login/')
         #return HttpResponse("<script>alert('username or password incorrect')</script>")
     except User.DoesNotExist:
         messages.info(request, 'user not found')
-        return HttpResponseRedirect('/login/register/')
+        return HttpResponseRedirect('/login/')
         #return HttpResponse("<script>alert('User not found')</script>")
 
     #return render(request, 'userprofile/profile.html', {'email': emailid, 'password':password})
