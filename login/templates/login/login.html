@@ -5,6 +5,15 @@
 <br>
 <div class='container'>
 
+{% if messages %}
+    {% for message in messages %}
+	<div class="alert alert-info alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>!</strong>{% if message.tags %} <!--class="{{ message.tags }}"-->{% endif %}{{ message }}
+	</div>
+    {% endfor %}
+{% endif %}
+
 <form action="logged/"  method="POST">
   {% csrf_token %}
   	<div class="form-group">

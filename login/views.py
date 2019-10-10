@@ -1,6 +1,7 @@
 """views.py for login """
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 from login.models import User
 # Create your views here.
 
@@ -45,9 +46,13 @@ def loguserin(request):
         if user_data.user_password == password:
             request.session['user_email'] = emailid
             return redirect('/')
-        return HttpResponse("<script>alert('username or password incorrect')</script>")
+        messages.info(request, 'username or password incorrect')
+        return HttpResponseRedirect('/login/register/')
+        #return HttpResponse("<script>alert('username or password incorrect')</script>")
     except User.DoesNotExist:
-        return HttpResponse("<script>alert('User not found')</script>")
+        messages.info(request, 'user not found')
+        return HttpResponseRedirect('/login/register/')
+        #return HttpResponse("<script>alert('User not found')</script>")
 
     #return render(request, 'userprofile/profile.html', {'email': emailid, 'password':password})
     # calling profile page of userprofile application
@@ -63,15 +68,23 @@ def registered(request):
         try:
             data_count = User.objects.filter(user_email=emailid).count()
             if data_count == 1:
-                return HttpResponse("<script>alert('email already exist')</script>")
+                #return HttpResponse("<script>alert('email already exist')</script>")
+                messages.info(request, 'email already exist')
+                return HttpResponseRedirect('/login/register/')
             else:
                 if emailid != '' and password != '':
                     user = User(user_email=emailid, user_password=password, user_name=name)
                     user.save()
-                    return HttpResponse("<script>alert('registered successfully')</script>")
+                    messages.info(request, 'Registered successfully! Login to continue')
+                    return HttpResponseRedirect('/login/')
+                    #return HttpResponse("<script>alert('registered successfully')</script>")
                 else:
-                    return HttpResponse("<script>alert('something went wrong')</script>")
+                    #return HttpResponse("<script>alert('something went wrong')</script>")
+                    messages.info(request, 'something went wrong try again')
+                    return HttpResponseRedirect('/login/register/')
         except User.DoesNotExist:
             pass   
-    return HttpResponse("<script>alert('something went wrong')</script>")
+    #return HttpResponse("<script>alert('something went wrong')</script>")
+    messages.info(request, 'something went wrong try again')
+    return HttpResponseRedirect('/login/register/')
     
