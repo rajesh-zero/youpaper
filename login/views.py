@@ -38,8 +38,8 @@ def loguserin(request):
     """
     there was an error for that install pip install pylint-django
     """
-    emailid = request.POST.get('email').lower()
-    password = request.POST.get('password')
+    emailid = request.POST.get('email').lower().strip()
+    password = request.POST.get('password').strip()
     try:
         user_data = User.objects.get(user_email=emailid)
         if user_data.user_password == password:
@@ -57,9 +57,9 @@ def registered(request):
     This method registers user in database
     """
     if request.method == 'POST':
-        emailid = request.POST.get('email').lower()
-        name = request.POST.get('name')
-        password = request.POST.get('password')
+        emailid = request.POST.get('email').lower().strip()
+        name = request.POST.get('name').strip()
+        password = request.POST.get('password').strip()
         try:
             data_count = User.objects.filter(user_email=emailid).count()
             if data_count == 1:
