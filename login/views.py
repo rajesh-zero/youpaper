@@ -21,6 +21,15 @@ def logout(request):
 def test(request):
     """test function"""
     return render(request, 'login/test.html')
+def profile(request):
+    """profile page function"""
+    params = {}
+    try:
+        user_data = User.objects.get(user_email=request.session['user_email'])
+        params = {'data':user_data}
+    except User.DoesNotExist:
+        pass
+    return render(request, 'login/profile.html', params)
 
 
 def register(request):
