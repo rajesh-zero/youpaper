@@ -2,16 +2,45 @@
 
 {% block content %}
 
-<br>
-<div class='container'>
 
+
+<div class="container">
 <a href="/">Go home</a>
-
-{% for key,value in datas.items %}
-<h5>{{key}} : {{value}}</h5>
-{% endfor %}
-
-
-
+<hr>
+<div class="row">
+    <div class="col-md-3">
+    <div class="text-center">
+        <img src="{{datas.Poster}}" class="img-thumbnail img-fluid" alt="...">
+    </div>
+    </div>
+    <div class="col-md-9" style="padding-left:25px;">
+    <div class="row"><h2>Title :{{datas.Title}}</h2></div>
+    <div class="row"><h4>Released : {{datas.Released}}</h4></div>
+    <div class="row">Runtime : {{datas.Runtime}} ({{datas.Language}})</div>
+    <div class="row">IMDb rating : {{datas.imdbRating}}</div>
+    {% if datas.totalSeasons %}
+        <div class="row">Seasons : {{datas.totalSeasons}}</div>
+    {% endif %}
+    <div class="row">Actors : {{datas.Actors}}</div>
+    <div class="row">Genre : {{datas.Genre}}</div>
+    <div class="row">Plot : {{datas.Plot}}</div>
+    <div class="row"></div>
+    <div class="row"></div>
+    <div class="row"></div>
+    <div class="row"></div>
+    
+    </div>
 </div>
+
+    
+    
+    {% comment %} {% for key,value in datas.items %}
+        <div class="row">
+        <div class="col-sm-3">{{key}}</div>
+        <div class="col-sm-9">{{value}}</div>
+        </div>
+    {% endfor %}  {% endcomment %}
+    
+</div>
+
 {% endblock %}
