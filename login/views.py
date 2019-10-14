@@ -40,6 +40,14 @@ def register(request):
         return redirect('/')
     return render(request, 'login/register.html')
 
+def updateprofile(request):
+    """
+    takes you to register page
+    """
+    if request.session['user_email'] != '':
+        return render(request, 'login/updateprofile.html')
+    return render(request, 'login/register.html')
+
 
 def loguserin(request):
     """
