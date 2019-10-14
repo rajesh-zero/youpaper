@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from login.models import User
+from login.forms import UserForm
 # Create your views here.
 
 def login(request):
@@ -42,10 +43,13 @@ def register(request):
 
 def updateprofile(request):
     """
-    takes you to register page
+    takes you to updateprofile page
     """
     if request.session['user_email'] != '':
-        return render(request, 'login/updateprofile.html')
+        form = UserForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+        return render(request, 'login/updateprofile.html', {'forms':form})
     return render(request, 'login/register.html')
 
 
