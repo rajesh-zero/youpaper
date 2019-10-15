@@ -22,11 +22,12 @@ class UserForm(forms.ModelForm):
             'user_description':'Description'
         }
         """http://www.learningaboutelectronics.com/Articles/How-to-create-a-date-field-in-a-Django-form.php"""
+        attributes = { 'class':'form-control',}
         YEARS = [x for x in range(1940, 2020)]
         widgets = {
-            'user_name':forms.TextInput(),
-            'user_email':forms.TextInput(),
-            'user_mobile':forms.TextInput(),
+            'user_name':forms.TextInput(attrs=attributes),
+            'user_email':forms.TextInput(attrs=attributes),
+            'user_mobile':forms.TextInput(attrs=attributes),
             'user_dob':forms.SelectDateWidget(years=YEARS),
-            'user_description':forms.TextInput()
+            'user_description':forms.TextInput(attrs=attributes)
         }

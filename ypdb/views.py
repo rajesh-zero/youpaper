@@ -14,7 +14,9 @@ def homeredirect(request):
 def view(request):
     """homeredirect function"""
     title = request.GET['t']
-    parseddata = search_api('t', title)
+    plot = 'full' #to get full description of plot
+    header = {'t': title, 'plot':plot}
+    parseddata = search_api(header)#passing header
     params = {'datas':parseddata}
     #print(parseddata)
 

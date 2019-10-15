@@ -53,6 +53,17 @@ def updateprofile(request):
     return render(request, 'login/register.html')
 
 
+def updateuserdata(request):
+    """
+    takes you to updateprofile page
+    """
+    if request.session['user_email'] != '':
+        form = UserForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+        return HttpResponse("<script>alert('Success')</script>")
+    return HttpResponse("<script>alert('Failed')</script>")
+
 def loguserin(request):
     """
     this method checks user name and password and logs user in
