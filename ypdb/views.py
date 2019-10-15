@@ -25,7 +25,8 @@ def view(request):
 def results(request):
     """homeredirect function"""
     search = request.GET['search'] #getting search terms from user
-    parseddata = search_api('s', search)
+    header = {'s': search}
+    parseddata = search_api(header)
     params = {}
     listparsed = [] #for this to be available outside if
     if parseddata['Response'] == 'True':
