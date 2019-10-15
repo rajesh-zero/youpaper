@@ -8,9 +8,9 @@
 <div>
     <div class = 'row'>
     {% for obj in datas|slice:"0:" %}
-        <div class="col-md-2">
+        <div class="col-md-2 imagecard">
          <div class="card mb-2">
-            <img class="card-img-top "  src="{{obj.Poster}}" alt="no image">
+            <img class="card-img-top "  src="{{obj.Poster}}" alt="no image" onerror="this.parentNode.parentNode.style.display='none'">
             <div class="card-body">
                <h5 class="card-title">{{obj.Title}}</h5>
                <a href="/ypdb/view/?t={{obj.Title}}" class="btn btn-outline-dark btn-sm">Read more</a>
