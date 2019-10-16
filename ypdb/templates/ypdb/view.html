@@ -12,9 +12,9 @@
     <div class="text-center">
         <img src="{{datas.Poster}}" class="img-thumbnail img-fluid" alt="...">
         <hr>
-        <div class="margin:10px">
-        <input type='button' class="btn btn-primary btn-block" value="Add to Watched">
-        <input type='button' class="btn btn-success btn-block" value="Add to Watchlist">
+        <div>
+        <input type='button' id="watched" class="btn btn-primary btn-block my=2" value="Add to Watched" onclick="watched()">
+        <input type='button' id="addtowatch" class="btn btn-success btn-block" value="Add to Watchlist" onclick="addtowatch()">
         </div>
         
     </div>
@@ -49,4 +49,36 @@
     
 </div>
 
+{% endblock %}
+
+
+
+{% block js %}
+<script>
+function watched()
+{
+    var btn = document.getElementById("watched");
+    if (btn.value=="Add to Watched")
+    {
+        btn.value = "Remove Watched";
+    } 
+    else 
+    {
+        btn.value = "Add to Watched";
+    }
+        
+};
+function addtowatch()
+{
+    var btn = document.getElementById("addtowatch");
+    if (btn.value=="Add to Watchlist")
+    {
+        btn.value = "Remove Watchlist";
+    } 
+    else 
+    {
+        btn.value = "Add to Watchlist";
+    }
+};
+</script>
 {% endblock %}
