@@ -46,7 +46,11 @@ def updateprofile(request):
     takes you to updateprofile page
     """
     if request.session['user_email'] != '':
-        form = UserForm(request.POST or None)
+        try:
+            user = User.objects.get(user_email=request.session['user_email'])
+            form = UserForm(initial={'user_name': user.user_name, 'user_email': user.user_email, 'user_mobile': user.user_mobile, 'user_dob': user.user_dob, 'user_description': user.user_description})
+        except User.DoesNotExist:
+            return HttpResponse("sorry")        
         if form.is_valid():
             form.save()
         return render(request, 'login/updateprofile.html', {'forms':form})
@@ -75,6 +79,7 @@ def loguserin(request):
     password = request.POST.get('password').strip()
     try:
         user_data = User.objects.get(user_email=emailid)
+        print(user_data)
         if user_data.user_password == password:
             request.session['user_email'] = emailid
             return redirect('/')
