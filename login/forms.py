@@ -12,14 +12,15 @@ class UserForm(forms.ModelForm):
             'user_email',
             'user_mobile',
             'user_dob',
-            'user_description'
+            'user_description',
         )
         labels = {
+            'user_id':'id',
             'user_name':'Name',
             'user_email':'Email',
             'user_mobile':'Mobile',
             'user_dob':'DOB',
-            'user_description':'Description'
+            'user_description':'Description',
         }
         """http://www.learningaboutelectronics.com/Articles/How-to-create-a-date-field-in-a-Django-form.php"""
         attributes = { 'class':'form-control',}
@@ -29,5 +30,5 @@ class UserForm(forms.ModelForm):
             'user_email':forms.TextInput(attrs=attributes),
             'user_mobile':forms.TextInput(attrs=attributes),
             'user_dob':forms.SelectDateWidget(years=YEARS),
-            'user_description':forms.TextInput(attrs=attributes)
+            'user_description':forms.TextInput(attrs=attributes),
         }

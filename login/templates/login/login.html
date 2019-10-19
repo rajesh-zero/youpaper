@@ -13,7 +13,10 @@
 	</div>
     {% endfor %}
 {% endif %}
-
+<div class="jumbotron col-sm-6">
+<h3>Login</h3>
+<br>
+<div class="">
 <form action="logged/"  method="POST">
   {% csrf_token %}
   	<div class="form-group">
@@ -29,6 +32,9 @@
     </div>
 	<input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
 	</form>
+</div>
+</div>
+
 
 </div>
 {% endblock %}
