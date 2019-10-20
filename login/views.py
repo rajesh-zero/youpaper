@@ -49,7 +49,7 @@ def updateprofile(request):
     if request.session['user_email'] != '':
         try:
             user = User.objects.get(user_email=request.session['user_email'])
-            form = UserForm(initial={'user_id':user.user_id, 'user_name': user.user_name, 'user_email': user.user_email, 'user_mobile': user.user_mobile, 'user_dob': user.user_dob, 'user_description': user.user_description,'user_password':user.user_password})
+            form = UserForm(initial={'user_id':user.user_id, 'user_name': user.user_name, 'user_email': user.user_email, 'user_mobile': user.user_mobile, 'user_dob': user.user_dob, 'user_description': user.user_description, 'user_password':user.user_password})
         except User.DoesNotExist:
             return HttpResponse("sorry") 
         if form.is_valid():
@@ -134,7 +134,7 @@ def registered(request):
                     messages.info(request, 'something went wrong try again')
                     return HttpResponseRedirect('/login/register/')
         except User.DoesNotExist:
-            pass   
+            pass
     #return HttpResponse("<script>alert('something went wrong')</script>")
     messages.info(request, 'something went wrong try again')
     return HttpResponseRedirect('/login/register/')
