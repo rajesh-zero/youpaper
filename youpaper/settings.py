@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'activity.apps.ActivityConfig',
     'login.apps.LoginConfig',
     'ypdb.apps.YpdbConfig',
     'django.contrib.admin',

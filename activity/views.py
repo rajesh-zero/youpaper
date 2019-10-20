@@ -6,4 +6,16 @@ def activity(request):
     """activity function"""
     if request.session['user_email'] == '':
         return redirect('/login/')
-    return HttpResponse("activity page")
+    return render(request, 'activity/activity.html')
+
+def watched(request):
+    """activity function"""
+    if request.session['user_email'] == '':
+        return redirect('/login/')
+    return HttpResponse("watched page")
+
+def watch(request):
+    """activity function"""
+    if request.session['user_email'] == '':
+        return redirect('/login/')
+    return HttpResponse("watch page")

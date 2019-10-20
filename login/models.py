@@ -17,7 +17,7 @@ class User(models.Model):
     user_email = models.CharField(max_length=100)
     user_password = models.CharField(max_length=100)
     user_name = models.CharField(max_length=100)
-    user_gender = models.CharField(max_length=1, default="")
+    user_gender = models.CharField(choices=( ('M', 'Male'), ('F', 'Female'), ), default='M', max_length=1)
     user_mobile = models.CharField(max_length=70, default="")
     user_image = models.ImageField(upload_to="login/userimage", default="")
     user_dob = models.DateField(null=True)

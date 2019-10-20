@@ -49,7 +49,7 @@ def updateprofile(request):
     if request.session['user_email'] != '':
         try:
             user = User.objects.get(user_email=request.session['user_email'])
-            form = UserForm(initial={'user_id':user.user_id, 'user_name': user.user_name, 'user_email': user.user_email, 'user_mobile': user.user_mobile, 'user_dob': user.user_dob, 'user_description': user.user_description, 'user_password':user.user_password})
+            form = UserForm(initial={'user_id':user.user_id, 'user_name': user.user_name, 'user_email': user.user_email, 'user_mobile': user.user_mobile, 'user_dob': user.user_dob, 'user_description': user.user_description, 'user_password':user.user_password,'user_gender':user.user_gender})
         except User.DoesNotExist:
             return HttpResponse("sorry") 
         if form.is_valid():
@@ -69,6 +69,7 @@ def updateuserdata(request):
                 user = User.objects.get(user_email=request.session['user_email'])
                 user.user_email = request.POST.get('user_email').lower().strip()
                 user.user_name = request.POST.get('user_name').strip()
+                user.user_gender = request.POST.get('user_gender')
                 dob = request.POST.get('user_dob_year')+"-"+request.POST.get('user_dob_month')+"-"+request.POST.get('user_dob_day')
                 user.user_dob = dob
                 user.user_description = request.POST.get('user_description')

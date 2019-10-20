@@ -1,4 +1,15 @@
 {% extends 'master.html' %}
+
+{% block head %}
+<style>
+.snps-inline-select {
+    width: auto;
+    display: inline-block;
+}
+</style>
+
+{% endblock %}
+
 {% block content %}
 
 {% if messages %}
@@ -12,7 +23,7 @@
     {% endfor %}
 {% endif %}
 
-<div class="col-md-3">
+<div class="col-md-4">
 <form action="/login/updateuserdata/" method='POST'>
 {% csrf_token %}
 {{forms.as_p}}
