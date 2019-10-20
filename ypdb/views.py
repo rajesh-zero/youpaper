@@ -34,6 +34,7 @@ def results(request):
         for enum in enumerate(listparsed):
             #print(enum[1])#iterating through enum tuple and selecting values
             #proud of below try catch and if elif  made very short logic instead of before insertdb
+            #below logic checks if movie exist in db if yes then skips else adds in db
             try:
                 if Ypdb.objects.filter(ypdb_title=enum[1]['Title']).count() == 1:
                     continue
@@ -42,7 +43,9 @@ def results(request):
                     records_to_insert.save()
             except Ypdb.DoesNotExist:
                 pass
-
-        params = {'datas':listparsed}
+        #below line does search in database to get result
+        #https://docs.djangoproject.com/en/1.11/ref/models/querysets/#startswith
+        datas = Ypdb.objects.filter(ypdb_title__icontains=search)
+        params = {'datas':datas}
     return render(request, 'ypdb/results.html', params)
     

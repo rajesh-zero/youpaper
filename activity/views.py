@@ -19,3 +19,19 @@ def watch(request):
     if request.session['user_email'] == '':
         return redirect('/login/')
     return HttpResponse("watch page")
+
+def addtowatched(request):
+    """add to watched function"""
+    return True
+
+def addtowatch(request):
+    """add to watch function"""
+    return True
+
+def removefromwatched(request):
+    """remove from watched function"""
+    return True
+
+def removefromwatch(request):
+    """remove from watch function"""
+    return True

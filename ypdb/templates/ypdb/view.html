@@ -13,8 +13,13 @@
         <img src="{{datas.Poster}}" class="img-thumbnail img-fluid" alt="...">
         <hr>
         <div>
-        <input type='button' id="watched" class="btn btn-primary btn-block my=2" value="Add to Watched" onclick="watched()">
-        <input type='button' id="addtowatch" class="btn btn-success btn-block" value="Add to Watchlist" onclick="addtowatch()">
+        <a href="/activity/addtowatched/" class="btn btn-primary btn-block my=2">Add to Watched</a>
+        <a href="/activity/removefromwatched/" class="btn btn-danger btn-block my=2">Remove Watched</a>
+        
+        <a href="/activity/addtowatch/" class="btn btn-primary btn-block">Add to Watchlist</a>
+        <a href="/activity/removefromwatch/" class="btn btn-danger btn-block">Remove Watchlist</a>
+        {% comment %} <input type='button' id="watched" class="btn btn-primary btn-block my=2" value="Add to Watched" onclick="watched()">
+        <input type='button' id="addtowatch" class="btn btn-success btn-block" value="Add to Watchlist" onclick="addtowatch()"> {% endcomment %}
         </div>
         
     </div>
