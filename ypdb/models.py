@@ -13,7 +13,7 @@ class Ypdb(models.Model):
     ypdb_runtime = models.CharField(max_length=300, default="")
     ypdb_seasons = models.CharField(max_length=300, default="")
     ypdb_genre = models.CharField(max_length=300, default="")
-    ypdb_plot = models.CharField(max_length=300, default="")
+    ypdb_plot = models.CharField(max_length=20000, default="")
 
     def __str__(self): # so that it displays email in admin objects
         return self.ypdb_title

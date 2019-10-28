@@ -19,7 +19,14 @@ def view(request):
     parseddata = search_api(header)#passing header
     params = {'datas':parseddata}
     #print(parseddata)
-
+    ypdb = Ypdb.objects.get(ypdb_title=title)
+    ypdb.ypdb_genre = parseddata['Genre']
+    ypdb.ypdb_plot = parseddata['Plot']
+    ypdb.ypdb_runtime = parseddata['Runtime']
+    if 'totalSeasons' in parseddata:
+        """this if checks if there is totalseason or not in parseddata"""
+        ypdb.ypdb_seasons = parseddata['totalSeasons']
+    ypdb.save()
     return render(request, 'ypdb/view.html', params)
 
 def results(request):
