@@ -18,8 +18,4 @@ class Ypdb(models.Model):
     def __str__(self): # so that it displays email in admin objects
         return self.ypdb_title
 
-class Watched(models.Model):
-    """class for watched stuff"""
-    watched_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    ypdb_id = models.ForeignKey(Ypdb, on_delete=models.CASCADE)
+
