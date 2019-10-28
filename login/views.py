@@ -97,6 +97,7 @@ def loguserin(request):
         print(user_data)
         if user_data.user_password == password:
             request.session['user_email'] = emailid
+            request.session['user_id'] = user_data.user_id
             return redirect('/')
         messages.info(request, 'username or password incorrect')
         return HttpResponseRedirect('/login/')

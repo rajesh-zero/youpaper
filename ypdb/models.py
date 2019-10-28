@@ -18,4 +18,3 @@ class Ypdb(models.Model):
     def __str__(self): # so that it displays email in admin objects
         return self.ypdb_title
 
-

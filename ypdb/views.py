@@ -14,12 +14,13 @@ def homeredirect(request):
 def view(request):
     """homeredirect function"""
     title = request.GET['t']
+    movie_id = request.GET['id']
     plot = 'full' #to get full description of plot
     header = {'t': title, 'plot':plot}
     parseddata = search_api(header)#passing header
     params = {'datas':parseddata}
     #print(parseddata)
-    ypdb = Ypdb.objects.get(ypdb_title=title)
+    ypdb = Ypdb.objects.get(ypdb_id=movie_id)
     ypdb.ypdb_genre = parseddata['Genre']
     ypdb.ypdb_plot = parseddata['Plot']
     ypdb.ypdb_runtime = parseddata['Runtime']
@@ -27,6 +28,9 @@ def view(request):
         """this if checks if there is totalseason or not in parseddata"""
         ypdb.ypdb_seasons = parseddata['totalSeasons']
     ypdb.save()
+    """https://stackoverflow.com/questions/6253611/how-to-get-the-id-of-the-record-just-saved"""
+    params['ypdb_id'] = movie_id
+    #print(params)
     return render(request, 'ypdb/view.html', params)
 
 def results(request):

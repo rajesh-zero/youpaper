@@ -9,3 +9,9 @@ class Watched(models.Model):
     watched_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     ypdb_id = models.ForeignKey(Ypdb, on_delete=models.CASCADE)
+
+class Watchlist(models.Model):
+    """class for watched stuff"""
+    watchlist_id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    ypdb_id = models.ForeignKey(Ypdb, on_delete=models.CASCADE)
