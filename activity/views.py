@@ -91,4 +91,3 @@ def removefromwatch(request):
         print('something wrong')
     return HttpResponse("Removed from Watchlist")
 
-

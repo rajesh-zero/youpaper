@@ -4,6 +4,8 @@ import requests
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from ypdb.models import Ypdb
+from login.models import User
+from activity.models import Watchlist, Watched
 from codes.apimethods import search_api
 # Create your views here.
 
@@ -30,6 +32,13 @@ def view(request):
     ypdb.save()
     """https://stackoverflow.com/questions/6253611/how-to-get-the-id-of-the-record-just-saved"""
     params['ypdb_id'] = movie_id
+    #print(params)
+    user = User.objects.get(user_id=request.session['user_id'])
+    watched_status = Watched.objects.filter(user_id=user, ypdb_id=movie_id).count()
+    watchlist_status = Watchlist.objects.filter(user_id=user, ypdb_id=movie_id).count()
+    print(watched_status, watchlist_status)
+    params['watched_status'] = watched_status
+    params['watchlist_status'] = watchlist_status
     #print(params)
     return render(request, 'ypdb/view.html', params)
 

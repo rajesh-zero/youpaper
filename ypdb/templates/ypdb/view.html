@@ -13,11 +13,22 @@
         <img src="{{datas.Poster}}" class="img-thumbnail img-fluid" alt="...">
         <hr>
         <div>
-        <a href="/activity/addtowatched/?tid={{ypdb_id}}" class="btn btn-primary btn-block my=2">Add to Watched</a>
-        <a href="/activity/removefromwatched/?tid={{ypdb_id}}" class="btn btn-danger btn-block my=2">Remove Watched</a>
         
-        <a href="/activity/addtowatch/?tid={{ypdb_id}}" class="btn btn-primary btn-block">Add to Watchlist</a>
-        <a href="/activity/removefromwatch/?tid={{ypdb_id}}" class="btn btn-danger btn-block">Remove Watchlist</a>
+        {% if watched_status == 1 %}
+<a href="/activity/removefromwatched/?tid={{ypdb_id}}" class="btn btn-danger btn-block my=2">Remove Watched</a>
+        {% else %}
+<a href="/activity/addtowatched/?tid={{ypdb_id}}" class="btn btn-primary btn-block my=2">Add to Watched</a>        
+        {% endif %}
+
+        {% if watchlist_status == 1 %}
+<a href="/activity/removefromwatch/?tid={{ypdb_id}}" class="btn btn-danger btn-block">Remove Watchlist</a>
+        {% else %}
+<a href="/activity/addtowatch/?tid={{ypdb_id}}" class="btn btn-primary btn-block">Add to Watchlist</a>
+        {% endif %}
+
+        
+        
+        
         {% comment %} <input type='button' id="watched" class="btn btn-primary btn-block my=2" value="Add to Watched" onclick="watched()">
         <input type='button' id="addtowatch" class="btn btn-success btn-block" value="Add to Watchlist" onclick="addtowatch()"> {% endcomment %}
         </div>
