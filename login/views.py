@@ -1,7 +1,7 @@
 """views.py for login """
 from datetime import datetime
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import messages
 from login.models import User
 from login.forms import UserForm
@@ -25,7 +25,11 @@ def test(request):
     x = request.GET['post_id']
     y = request.GET['test_id']
     #return render(request, 'login/test.html')
-    return HttpResponse("Success!"+x+y)
+    innerHTML = "Added to Watchlist"
+    cssClass = "btn btn-success btn-block"
+    d = {'innerHTML':innerHTML, 'cssClass':cssClass}
+    return JsonResponse(d)
+    #return HttpResponse("Success!"+x+y)
     
 def profile(request):
     """profile page function"""
@@ -53,7 +57,7 @@ def updateprofile(request):
     if request.session['user_email'] != '':
         try:
             user = User.objects.get(user_email=request.session['user_email'])
-            form = UserForm(initial={'user_id':user.user_id, 'user_name': user.user_name, 'user_email': user.user_email, 'user_mobile': user.user_mobile, 'user_dob': user.user_dob, 'user_description': user.user_description, 'user_password':user.user_password,'user_gender':user.user_gender})
+            form = UserForm(initial={'user_id':user.user_id, 'user_name': user.user_name, 'user_email': user.user_email, 'user_mobile': user.user_mobile, 'user_dob': user.user_dob, 'user_description': user.user_description, 'user_password':user.user_password, 'user_gender':user.user_gender})
         except User.DoesNotExist:
             return HttpResponse("sorry") 
         if form.is_valid():

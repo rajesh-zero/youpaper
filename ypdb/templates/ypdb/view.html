@@ -14,10 +14,29 @@
         <hr>
         <div>
 
-        <a class="likebutton" id="like" href="#" data-catid="123">Like</a>
-        
+        <a class="likebutton" id="like" href="#" ajaxurl="/login/test/" data-catid="123">Like</a>
+
+        <button id="watched"
         {% if watched_status == 1 %}
-<a href="/activity/removefromwatched/?tid={{ypdb_id}}" class="btn btn-danger btn-block my=2">Remove Watched</a>
+        class="ypdbactivity btn btn-success btn-block" ajaxurl="/activity/watched/">
+        Remove Watched
+        {% else %}
+        class="ypdbactivity btn btn-primary btn-block" ajaxurl="/activity/watched/">
+        Add to Watched
+        {% endif %}
+        </button>
+        <button href="#" id="watch" 
+        {% if watchlist_status == 1 %}
+        class="ypdbactivity btn btn-success btn-block" ajaxurl="/activity/watch/">
+        Remove Watch
+        {% else %}
+        class="ypdbactivity btn btn-primary btn-block" ajaxurl="/activity/watch/">
+        Add to Watch
+        {% endif %}
+        </button>
+        
+        {% comment %} {% if watched_status == 1 %}
+<a href="/activity/removefromwatched/?tid={{ypdb_id}}"  class="btn btn-danger btn-block my=2">Remove Watched</a>
         {% else %}
 <a href="/activity/addtowatched/?tid={{ypdb_id}}" class="btn btn-primary btn-block my=2">Add to Watched</a>        
         {% endif %}
@@ -26,7 +45,7 @@
 <a href="/activity/removefromwatch/?tid={{ypdb_id}}" class="btn btn-danger btn-block">Remove Watchlist</a>
         {% else %}
 <a href="/activity/addtowatch/?tid={{ypdb_id}}" class="btn btn-primary btn-block">Add to Watchlist</a>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
         
         
@@ -73,20 +92,23 @@
 
 {% block js %}
 <script type="text/javascript">
-$('#like').click(function(){
-    var catid;
-    catid = $(this).attr("data-catid");
-    console.log(catid+'logged')
+$('.ypdbactivity').click(function(){
+    var tid;//movie id to send
+    var var_url;//url to which i have written my function
+    var button_id;//id of the button that is clicked
+    tid = {{ypdb_id}};//accessing from django jinja template
+    button_id = $(this).attr("id");
+    var_url = $(this).attr("ajaxurl");
     $.ajax(
         {
             type:"GET",
-            url:'/login/test/',
+            url:var_url,
             data:{
-                 post_id: catid,
-                 test_id:'abc'
+                 tid: tid,
             },
             success: function( data ){
-                console.log(data)
+                document.getElementById(button_id).setAttribute("class", data["cssClass"]);
+                document.getElementById(button_id).innerHTML=data["innerHTML"];
             }
         }
     )
