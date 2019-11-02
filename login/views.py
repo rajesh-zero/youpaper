@@ -22,7 +22,11 @@ def logout(request):
 
 def test(request):
     """test function"""
-    return render(request, 'login/test.html')
+    x = request.GET['post_id']
+    y = request.GET['test_id']
+    #return render(request, 'login/test.html')
+    return HttpResponse("Success!"+x+y)
+    
 def profile(request):
     """profile page function"""
     params = {}

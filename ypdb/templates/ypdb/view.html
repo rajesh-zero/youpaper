@@ -13,6 +13,8 @@
         <img src="{{datas.Poster}}" class="img-thumbnail img-fluid" alt="...">
         <hr>
         <div>
+
+        <a class="likebutton" id="like" href="#" data-catid="123">Like</a>
         
         {% if watched_status == 1 %}
 <a href="/activity/removefromwatched/?tid={{ypdb_id}}" class="btn btn-danger btn-block my=2">Remove Watched</a>
@@ -70,31 +72,24 @@
 
 
 {% block js %}
-<script>
-function watched()
-{
-    var btn = document.getElementById("watched");
-    if (btn.value=="Add to Watched")
-    {
-        btn.value = "Remove Watched";
-    } 
-    else 
-    {
-        btn.value = "Add to Watched";
-    }
-        
-};
-function addtowatch()
-{
-    var btn = document.getElementById("addtowatch");
-    if (btn.value=="Add to Watchlist")
-    {
-        btn.value = "Remove Watchlist";
-    } 
-    else 
-    {
-        btn.value = "Add to Watchlist";
-    }
-};
+<script type="text/javascript">
+$('#like').click(function(){
+    var catid;
+    catid = $(this).attr("data-catid");
+    console.log(catid+'logged')
+    $.ajax(
+        {
+            type:"GET",
+            url:'/login/test/',
+            data:{
+                 post_id: catid,
+                 test_id:'abc'
+            },
+            success: function( data ){
+                console.log(data)
+            }
+        }
+    )
+})
 </script>
 {% endblock %}
