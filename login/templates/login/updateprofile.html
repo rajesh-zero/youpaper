@@ -7,23 +7,24 @@
     display: inline-block;
 }
 </style>
-
 {% endblock %}
 
 {% block content %}
 
 {% if messages %}
-    {% for message in messages %}
-	
+    {% for message in messages %}	
 	<div class="alert alert-info alert-dismissible">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>!</strong>{% if message.tags %} <!--class="{{ message.tags }}"-->{% endif %}{{ message }}
-	</div>
-	
+  <strong {% if message.tags %} class="{{ message.tags }}"{% endif %} >! </strong>{{ message }}
+	</div>	
     {% endfor %}
 {% endif %}
 
 <div class="col-md-4">
+{% comment %} 
+working with forms forms.as_p generated as p tags
+https://docs.djangoproject.com/en/2.2/topics/forms/ 
+{% endcomment %}
 <form action="/login/updateuserdata/" method='POST'>
 {% csrf_token %}
 {{forms.as_p}}

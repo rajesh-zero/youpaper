@@ -28,13 +28,10 @@
             <img class="card-img-top "  src="{{obj.ypdb_poster}}" alt="Card image cap" onerror="this.parentNode.parentNode.style.display='none'">
             <div class="card-body">
                <h5 class="card-title">{{obj.ypdb_title}}</h5>
-              <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>--> 
-               <a href="/ypdb/view/?t={{obj.ypdb_title}}&id={{obj.ypdb_id}}" class="btn btn-outline-dark btn-sm">Read more</a>
+               <a {# gererating url with parameters#} href="/ypdb/view/?t={{obj.ypdb_title}}&id={{obj.ypdb_id}}" class="btn btn-outline-dark btn-sm">Read more</a>
             </div>
          </div>
       </div>
-        <!--<div class='col-md-3'>{{ obj }}</div>-->
-
     {# if the the forloop counter is divisible by 4, close the <li> tag and open a new one #}
     {% if forloop.counter|divisibleby:6 %}
     

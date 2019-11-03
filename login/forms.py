@@ -4,7 +4,7 @@ from .models import User
 
 class UserForm(forms.ModelForm):
     """form for user"""
-    """https://stackoverflow.com/questions/36905060/how-can-i-change-the-modelform-label-and-give-it-a-custom-name"""
+    """https://stackoverflow.com/questions/36905060/how-can-i-change-the-modelform-label-and-give-it-a-custom-name check labels dictionary below fields dictionary"""
     class Meta:
         model = User
         fields = (
@@ -32,6 +32,6 @@ class UserForm(forms.ModelForm):
             'user_email':forms.TextInput(attrs=attributes),
             'user_mobile':forms.TextInput(attrs=attributes),
             #https://stackoverflow.com/questions/46900627/django-selectdatewidget-inline-select-bootstrap
-            'user_dob':forms.SelectDateWidget(years=YEARS, attrs={'class': 'form-control snps-inline-select','data-date-format': 'dd/mm/yyyy',}),
+            'user_dob':forms.SelectDateWidget(years=YEARS, attrs={'class': 'form-control snps-inline-select', 'data-date-format': 'dd/mm/yyyy',}),
             'user_description':forms.TextInput(attrs=attributes),
         }

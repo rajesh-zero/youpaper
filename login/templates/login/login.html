@@ -1,18 +1,23 @@
 {% extends 'master.html' %}
-{% comment %} {% extends 'login/master.html' %}  {% endcomment %}
+
 {% block content %}
 
 <br>
 <div class='container'>
 
+{% comment %} 
+Getting messages from view to display here
+https://docs.djangoproject.com/en/2.2/ref/contrib/messages/ 
+{% endcomment %}
 {% if messages %}
     {% for message in messages %}
 	<div class="alert alert-info alert-dismissible">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>!</strong>{% if message.tags %} <!--class="{{ message.tags }}"-->{% endif %}{{ message }}
+  <strong {% if message.tags %} class="{{ message.tags }}"{% endif %} >! </strong>{{ message }}
 	</div>
     {% endfor %}
 {% endif %}
+
 <div class="jumbotron col-sm-6">
 <h3>Login</h3>
 <br>

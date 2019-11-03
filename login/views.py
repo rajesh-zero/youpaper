@@ -9,7 +9,7 @@ from login.forms import UserForm
 
 def login(request):
     """
-    takes you to login page
+    takes you to login page if session is empty
     """
     if request.session['user_email'] != '':
         return redirect('/')
@@ -22,15 +22,8 @@ def logout(request):
 
 def test(request):
     """test function"""
-    x = request.GET['post_id']
-    y = request.GET['test_id']
-    #return render(request, 'login/test.html')
-    innerHTML = "Added to Watchlist"
-    cssClass = "btn btn-success btn-block"
-    d = {'innerHTML':innerHTML, 'cssClass':cssClass}
-    return JsonResponse(d)
-    #return HttpResponse("Success!"+x+y)
-    
+    return HttpResponse("test function")
+
 def profile(request):
     """profile page function"""
     params = {}
@@ -52,14 +45,14 @@ def register(request):
 
 def updateprofile(request):
     """
-    takes you to updateprofile page
+    takes you to updateprofile page with content preloaded
     """
     if request.session['user_email'] != '':
         try:
             user = User.objects.get(user_email=request.session['user_email'])
             form = UserForm(initial={'user_id':user.user_id, 'user_name': user.user_name, 'user_email': user.user_email, 'user_mobile': user.user_mobile, 'user_dob': user.user_dob, 'user_description': user.user_description, 'user_password':user.user_password, 'user_gender':user.user_gender})
         except User.DoesNotExist:
-            return HttpResponse("sorry") 
+            return HttpResponse("sorry")
         if form.is_valid():
             form.save()
         return render(request, 'login/updateprofile.html', {'forms':form})
@@ -85,8 +78,6 @@ def updateuserdata(request):
                 user.save()
             except User.DoesNotExist:
                 return HttpResponse("sorry")
-        # if form.is_valid():
-        #     form.save()
         messages.info(request, 'Updated successfully!')
         return redirect('/login/updateprofile/')
     return HttpResponse("<script>alert('Failed')</script>")
@@ -109,27 +100,21 @@ def loguserin(request):
             return redirect('/')
         messages.info(request, 'username or password incorrect')
         return HttpResponseRedirect('/login/')
-        #return HttpResponse("<script>alert('username or password incorrect')</script>")
     except User.DoesNotExist:
         messages.info(request, 'user not found')
         return HttpResponseRedirect('/login/')
-        #return HttpResponse("<script>alert('User not found')</script>")
-
-    #return render(request, 'userprofile/profile.html', {'email': emailid, 'password':password})
-    # calling profile page of userprofile application
 
 def registered(request):
     """
     This method registers user in database
     """
     if request.method == 'POST':
-        emailid = request.POST.get('email').lower().strip()
+        emailid = request.POST.get('email').lower().strip() #does case lower to store in table and removes trailing and leading space
         name = request.POST.get('name').strip()
         password = request.POST.get('password').strip()
         try:
             data_count = User.objects.filter(user_email=emailid).count()
             if data_count == 1:
-                #return HttpResponse("<script>alert('email already exist')</script>")
                 messages.info(request, 'email already exist')
                 return HttpResponseRedirect('/login/register/')
             else:
@@ -138,14 +123,11 @@ def registered(request):
                     user.save()
                     messages.info(request, 'Registered successfully! Login to continue')
                     return HttpResponseRedirect('/login/')
-                    #return HttpResponse("<script>alert('registered successfully')</script>")
                 else:
-                    #return HttpResponse("<script>alert('something went wrong')</script>")
                     messages.info(request, 'something went wrong try again')
                     return HttpResponseRedirect('/login/register/')
         except User.DoesNotExist:
             pass
-    #return HttpResponse("<script>alert('something went wrong')</script>")
     messages.info(request, 'something went wrong try again')
     return HttpResponseRedirect('/login/register/')
     

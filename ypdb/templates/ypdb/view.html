@@ -14,8 +14,6 @@
         <hr>
         <div>
 
-        <a class="likebutton" id="like" href="#" ajaxurl="/login/test/" data-catid="123">Like</a>
-
         <button id="watched"
         {% if watched_status == 1 %}
         class="ypdbactivity btn btn-success btn-block" ajaxurl="/activity/watched/">
@@ -34,21 +32,7 @@
         Add to Watch
         {% endif %}
         </button>
-        
-        {% comment %} {% if watched_status == 1 %}
-<a href="/activity/removefromwatched/?tid={{ypdb_id}}"  class="btn btn-danger btn-block my=2">Remove Watched</a>
-        {% else %}
-<a href="/activity/addtowatched/?tid={{ypdb_id}}" class="btn btn-primary btn-block my=2">Add to Watched</a>        
-        {% endif %}
-
-        {% if watchlist_status == 1 %}
-<a href="/activity/removefromwatch/?tid={{ypdb_id}}" class="btn btn-danger btn-block">Remove Watchlist</a>
-        {% else %}
-<a href="/activity/addtowatch/?tid={{ypdb_id}}" class="btn btn-primary btn-block">Add to Watchlist</a>
-        {% endif %} {% endcomment %}
-
-        
-        
+    
         
         {% comment %} <input type='button' id="watched" class="btn btn-primary btn-block my=2" value="Add to Watched" onclick="watched()">
         <input type='button' id="addtowatch" class="btn btn-success btn-block" value="Add to Watchlist" onclick="addtowatch()"> {% endcomment %}

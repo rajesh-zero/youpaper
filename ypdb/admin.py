@@ -1,4 +1,4 @@
-"""doc string"""
+"""ypdb admin.py file"""
 from django.contrib import admin
 from .models import Ypdb
 

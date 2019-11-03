@@ -19,9 +19,8 @@ def view(request):
     movie_id = request.GET['id']
     plot = 'full' #to get full description of plot
     header = {'t': title, 'plot':plot}
-    parseddata = search_api(header)#passing header
+    parseddata = search_api(header)#passing header to my search api function that i created which returns dictionary
     params = {'datas':parseddata}
-    #print(parseddata)
     ypdb = Ypdb.objects.get(ypdb_id=movie_id)
     ypdb.ypdb_genre = parseddata['Genre']
     ypdb.ypdb_plot = parseddata['Plot']
@@ -30,13 +29,16 @@ def view(request):
         """this if checks if there is totalseason or not in parseddata"""
         ypdb.ypdb_seasons = parseddata['totalSeasons']
     ypdb.save()
-    """https://stackoverflow.com/questions/6253611/how-to-get-the-id-of-the-record-just-saved"""
+    """
+    finding id of record just saved
+    https://stackoverflow.com/questions/6253611/how-to-get-the-id-of-the-record-just-saved
+    """
+    #print("id is", ypdb.ypdb_id)
     params['ypdb_id'] = movie_id
     #print(params)
     user = User.objects.get(user_id=request.session['user_id'])
     watched_status = Watched.objects.filter(user_id=user, ypdb_id=movie_id).count()
     watchlist_status = Watchlist.objects.filter(user_id=user, ypdb_id=movie_id).count()
-    print(watched_status, watchlist_status)
     params['watched_status'] = watched_status
     params['watchlist_status'] = watchlist_status
     #print(params)
@@ -56,10 +58,10 @@ def results(request):
             #proud of below try catch and if elif  made very short logic instead of before insertdb
             #below logic checks if movie exist in db if yes then skips else adds in db
             try:
-                if Ypdb.objects.filter(ypdb_title=enum[1]['Title']).count() == 1:
+                if Ypdb.objects.filter(ypdb_title=enum[1]['Title']).count() == 1:#if movie already present then skip
                     continue
-                elif enum[1]['Poster'] != 'N/A':
-                    records_to_insert = Ypdb(ypdb_title=enum[1]['Title'], ypdb_year=enum[1]['Year'], ypdb_type=enum[1]['Type'],        ypdb_poster=enum[1]['Poster'])
+                elif enum[1]['Poster'] != 'N/A':#dont insert items if poster is blank
+                    records_to_insert = Ypdb(ypdb_title=enum[1]['Title'], ypdb_year=enum[1]['Year'], ypdb_type=enum[1]['Type'], ypdb_poster=enum[1]['Poster'])
                     records_to_insert.save()
             except Ypdb.DoesNotExist:
                 pass

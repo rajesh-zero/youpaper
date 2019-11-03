@@ -10,50 +10,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typed.js"></script>
 
-    <style>
-    .social-card-header{
-        position: relative;
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-        height: 96px;
-    }
-    .social-card-header i {
-        font-size: 32px;
-        color:#FFF;
-    }
-    .bg-facebook {
-        background-color:#3b5998;
-    }
-    .text-facebook {
-        color:#3b5998;
-    }
-    .bg-google-plus{
-        background-color:#dd4b39;
-    }
-    .text-google-plus {
-        color:#dd4b39;
-    }
-    .bg-twitter {
-        background-color:#1da1f2;
-    }
-    .text-twitter {
-        color:#1da1f2;
-    }
-    .bg-pinterest {
-        background-color:#bd081c;
-    }
-    .text-pinterest {
-        color:#bd081c;
-    }
-    .share:hover {
-            text-decoration: none;
-        opacity: 0.8;
-    }
-    </style>
 {% block head %}
 {% endblock %}
 </head>
@@ -81,7 +37,7 @@
         <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <!--accessing session request.session.user_email value by executing below command-->
+        {% comment %} accessing session request.session.user_email value by executing below command {% endcomment %}
         {% if request.session.user_email == '' %} 
 
         <ul class="navbar-nav">
@@ -128,14 +84,9 @@
 {% endblock %}
 </div>
 
-<!-- <div id="typed-strings">
-  </div> -->
-
-
-
-<!-- static files below-->
+{% comment %} <!-- static files below-->
 <!--using full version of jquery-->
-    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>--> {% endcomment %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

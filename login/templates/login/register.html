@@ -1,50 +1,46 @@
 {% extends 'master.html' %}
-{% comment %} {% extends 'login/master.html' %} {% endcomment %}
+
 {% block content %}
 
 <br>
 <div class='container'>
-
-{% if messages %}
-    {% for message in messages %}
-	
-	<div class="alert alert-info alert-dismissible">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>!</strong>{% if message.tags %} <!--class="{{ message.tags }}"-->{% endif %}{{ message }}
+	{% comment %} 
+	Getting messages from view to display here
+	https://docs.djangoproject.com/en/2.2/ref/contrib/messages/ 
+	{% endcomment %}
+	{% if messages %}
+	    {% for message in messages %}
+		<div class="alert alert-info alert-dismissible">
+	  <button type="button" class="close" data-dismiss="alert">&times;</button>
+	  <strong {% if message.tags %} class="{{ message.tags }}"{% endif %} >! </strong>{{ message }}
+		</div>
+	    {% endfor %}
+	{% endif %}
+	<div class="jumbotron col-sm-6">
+	<br>
+	<h3>Register</h3>
+		<form action="/login/registered/"  method="POST">
+	  		{% csrf_token %}
+	  		<div class="form-group">
+			    <input class="form-control" placeholder="Full name" name="name" type="text">
+			</div>
+	  		<div class="form-group">
+			    <input class="form-control" placeholder="yourmail@example.com" name="email" type="text">
+			</div>
+			<div class="form-group">
+				<input class="form-control" placeholder="Password" name="password" type="password" value="">
+			</div>
+			<div class="form-group">
+				<input class="form-control" placeholder="Confirm Password" name="confirmpassword" type="password" value="">
+			</div>
+	    	<div class="checkbox">
+	    		<label>
+	    			<input name="remember" type="checkbox"> I agree all conditions
+	    		</label>
+	    	</div>
+			<input class="btn btn-lg btn-success btn-block" type="submit" value="Register">
+		</form>
 	</div>
-	
-    {% endfor %}
-{% endif %}
-<div class="jumbotron col-sm-6">
-<br>
-<h3>Register</h3>
-<form action="../registered/"  method="POST">
-
-  {% csrf_token %}
-
-  	<div class="form-group">
-	    <input class="form-control" placeholder="Full name" name="name" type="text">
-	</div>
-  	<div class="form-group">
-	    <input class="form-control" placeholder="yourmail@example.com" name="email" type="text">
-	</div>
-	<div class="form-group">
-		<input class="form-control" placeholder="Password" name="password" type="password" value="">
-	</div>
-	<div class="form-group">
-		<input class="form-control" placeholder="Confirm Password" name="confirmpassword" type="password" value="">
-	</div>
-    <div class="checkbox">
-    	<label>
-    		<input name="remember" type="checkbox"> I agree all conditions
-    	</label>
-    </div>
-	<input class="btn btn-lg btn-success btn-block" type="submit" value="Register">
-	</form>
-</div>
-
-
-
 </div>
 
 {% endblock  %}
