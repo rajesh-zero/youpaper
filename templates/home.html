@@ -37,22 +37,43 @@
                    <h5 class="card-title">{{obj.ypdb_title}}</h5>
                    <a {# gererating url with parameters#} href="/ypdb/view/?t={{obj.ypdb_title}}&id={{obj.ypdb_id}}" class="btn     btn-outline-dark btn-sm">Read more</a>
                 </div>
-             </div>
-          </div>
+            </div>
+        </div>
         {# if the the forloop counter is divisible by 4, close the <li> tag and open a new one #}
-        {% if forloop.counter|divisibleby:6 %}
+        {% comment %} {% if forloop.counter|divisibleby:6 %}
 
-        {% endif %}
+        {% endif %} {% endcomment %}
 
         {% endfor %}
         </div>
-    </div>
+    </div>      
     </div>
 
     </div>
     <div>
 
     </div>
+
+<div>
+<div class="pagination">
+    <span class="step-links">
+        {% if datas.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ datas.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ datas.number }} of {{ datas.paginator.num_pages }}.
+        </span>
+
+        {% if datas.has_next %}
+            <a href="?page={{ datas.next_page_number }}">next</a>
+            <a href="?page={{ datas.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>        
+
+</div>
 
     {% endif %}
         <br>
