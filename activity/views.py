@@ -16,6 +16,10 @@ def activity(request):
     params = {}
     data = Watched.objects.select_related().filter(user_id=request.session['user_id'])
     watched_data = []
+    """https://stackoverflow.com/questions/25150955/python-iterating-through-object-attributes/38834900
+    for i, j in data.__dict__.items():
+        print(i, j)
+    """
     for i in data:
         watched_data.append({'watched_id':i.watched_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title})
     params['watched_data'] = watched_data #adding these data in params dictionary
