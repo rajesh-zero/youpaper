@@ -1,52 +1,73 @@
 {% extends 'master.html' %}
 
+{% block title %}
+    <title>Youpaper</title>
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
 {% block content %}
 
-{% if request.session.user_email == '' %}
+    {% if request.session.user_email == '' %}
 
-<div class='container'>
-    <div class="form-group">
-        <h1><span id="typed"></span></h1>
+    <div class='container'>
+        <div class="form-group">
+            <h1><span id="typed"></span></h1>
+        </div>
     </div>
-</div>
-{% else %}
+    {% else %}
 
-<div class="container">
-    <h1>Hello {{request.session.user_email}}</h1>  
-</div>
-<div class="container">
-   <h3 class="pb-3 mb-4 font-italic border-bottom">
-      Find awesomeness below
-   </h3>
+    <div class="container">
+        <h1>Hello {{request.session.user_email}}</h1>  
+    </div>
+    <div class="container">
+       <h3 class="pb-3 mb-4 font-italic border-bottom">
+          Find awesomeness below
+       </h3>
 
-<div>
-<div>
-    <div class = 'row'>
-    {% for obj in datas|slice:"0:" %}
-        <div class="col-md-2">
-         <div class="card mb-2">
-            <img class="card-img-top "  src="{{obj.ypdb_poster}}" alt="Card image cap" onerror="this.parentNode.parentNode.style.display='none'">
-            <div class="card-body">
-               <h5 class="card-title">{{obj.ypdb_title}}</h5>
-               <a {# gererating url with parameters#} href="/ypdb/view/?t={{obj.ypdb_title}}&id={{obj.ypdb_id}}" class="btn btn-outline-dark btn-sm">Read more</a>
-            </div>
-         </div>
-      </div>
-    {# if the the forloop counter is divisible by 4, close the <li> tag and open a new one #}
-    {% if forloop.counter|divisibleby:6 %}
-    
+    <div>
+    <div>
+        <div class = 'row'>
+        {% for obj in datas|slice:"0:" %}
+            <div class="col-md-2">
+             <div class="card mb-2">
+                <img class="card-img-top "  src="{{obj.ypdb_poster}}" alt="Card image cap"  onerror="this.parentNode.parentNode.style.display='none'">
+                <div class="card-body">
+                   <h5 class="card-title">{{obj.ypdb_title}}</h5>
+                   <a {# gererating url with parameters#} href="/ypdb/view/?t={{obj.ypdb_title}}&id={{obj.ypdb_id}}" class="btn     btn-outline-dark btn-sm">Read more</a>
+                </div>
+             </div>
+          </div>
+        {# if the the forloop counter is divisible by 4, close the <li> tag and open a new one #}
+        {% if forloop.counter|divisibleby:6 %}
+
+        {% endif %}
+
+        {% endfor %}
+        </div>
+    </div>
+    </div>
+
+    </div>
+    <div>
+
+    </div>
+
     {% endif %}
+        <br>
+{% endblock %}
 
-    {% endfor %}
-    </div>
-</div>
-</div>
-
-</div>
-<div>
-
-</div>
-
-{% endif %}
-    <br>
+{% block js %}
+    <script>
+         var typed = new Typed('#typed',{
+                        strings:["Welcome!","Sign up to explore!"],
+                        backSpeed: 15,
+                        smartBackspace: true,
+                        backDelay: 1200,
+                        startDelay: 1000,
+                        typeSpeed: 25,
+                        loop: true,
+                      });
+    </script>
 {% endblock %}

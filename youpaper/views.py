@@ -11,8 +11,8 @@ from codes.apimethods import search_api
 def home(request):
     """doc string"""
     try:
-        x=request.session['user_email']
-        print(x)
+        xox = request.session['user_email']
+        print("..................", xox, "...........Loaded home page")
     except KeyError:
         request.session['user_email'] = ''
     # if request.session['user_email']:
@@ -20,7 +20,7 @@ def home(request):
     # else:
     #     request.session['user_email'] = ''
     datas = Ypdb.objects.filter(~Q(ypdb_poster='N/A')).order_by('-ypdb_id')[:20]#to get only last 20records with images in descending order
-    print(type(datas))
+    #print(datas)
     params = {'datas':datas, 'range':range(6)}
     return render(request, 'home.html', params)
 def contactus(request):

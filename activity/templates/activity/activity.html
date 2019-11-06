@@ -1,10 +1,82 @@
 {% extends 'master.html' %}
 
+{% block head %}
+<style>
+#navlist {
+    color:#fff;
+}
+</style>
+
+{% endblock %}
+
 {% block content %}
 <br>
 <div class="container">
-<h2>Watched</h2>
-<br>
-<h2>Watch</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <button class="btn btn-outline-dark btn-block" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true">Watched ({{watched_data|length}})</button>
+            <div class="collapse show" id='collapseExample'>
+                <table class='table'>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Title</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for data in watched_data %}
+                    <tr id='watched_{{forloop.counter}}'>
+                        <td>{{forloop.counter}}</td>
+                        <td> 
+                            <a href="/ypdb/view/?t={{data.ypdb_title}}&id={{data.ypdb_id}}"> {{data.ypdb_title}} </a> 
+                        </td>
+                        <td>
+                            <button id='button_watched_{{forloop.counter}}' class="button_remove btn btn-light"  watched_id='{{data.watched_id}}    '>Remove</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-outline-dark btn-block" data-toggle="collapse" data-target="#watchlistcollapse" aria-expanded="true">Watchlist ({{watchlist_data|length}})</button> 
+            <div class="collapse show" id="watchlistcollapse">            
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Title</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in watchlist_data %}
+                <tr id='watchlist_{{forloop.counter}}' watched_id='{{data.watchlist_id}}'>
+                    <td>{{forloop.counter}}</td>
+                    <td><a href="/ypdb/view/?t={{data.ypdb_title}}&id={{data.ypdb_id}}"> {{data.ypdb_title}} </a> </td>
+                    <td><button id='button_watchlist_{{forloop.counter}}' class="button_remove btn btn-light">Remove</button></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
+
+
+{% block js %}
+<script type="text/javascript">
+$('.button_remove').click(function(){
+    button_id = $(this).attr("id");
+    row_id = $(this.parentNode.parentNode).attr("id");
+    document.getElementById(row_id).setAttribute("style", "display: none;");
+    console.log(button_id +" "+row_id);
+})
+</script>
+{% endblock %}
+
+

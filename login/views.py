@@ -22,6 +22,7 @@ def logout(request):
 
 def test(request):
     """test function"""
+    print(request.session)
     return HttpResponse("test function")
 
 def profile(request):
@@ -29,7 +30,7 @@ def profile(request):
     params = {}
     try:
         user_data = User.objects.get(user_email=request.session['user_email'])
-        params = {'data':user_data}
+        params = {'data': user_data}
     except User.DoesNotExist:
         pass
     return render(request, 'login/profile.html', params)
