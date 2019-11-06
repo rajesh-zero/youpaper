@@ -51,6 +51,7 @@
     $('.button_remove').click(function(){
         button_id = $(this).attr("id");
         row_id = $(this.parentNode.parentNode).attr("id");
+        document.getElementById(row_id).setAttribute("style", "display: none;");
         console.log(button_id +" "+row_id);
     })
     </script>
