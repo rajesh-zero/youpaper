@@ -61,6 +61,10 @@ def watched(request):
     """activity function"""
     if request.session['user_email'] == '':
         return redirect('/login/')
+    if request.is_ajax():
+        print("This is ajax")
+    else:
+        print("Not ajax")
     html_attributes = {} #creating dictionary to send as JSonResponse
     movie_id = request.GET['tid'] #getting movieid from url
     userid = request.session['user_id'] #getting user id from session that was set while logging in
@@ -86,6 +90,10 @@ def watch(request):
     """activity function"""
     if request.session['user_email'] == '':
         return redirect('/login/')
+    if request.is_ajax():
+        print("This is ajax")
+    else:
+        print("Not ajax")
     html_attributes = {} #creating dictionary to send as JSonResponse
     movie_id = request.GET['tid'] #getting movieid from url
     userid = request.session['user_id'] #getting user id from session that was set while logging in

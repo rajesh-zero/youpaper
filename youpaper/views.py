@@ -2,8 +2,9 @@
 import json
 import requests
 from django.shortcuts import render, redirect
-from django.core.paginator import Paginator#for pagination
-from django.http import HttpResponse
+from django.core import serializers
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger#for pagination
+from django.http import HttpResponse, JsonResponse
 from django.db.models import Q #to use ~Q to do negation
 from ypdb.models import Ypdb
 from codes.apimethods import search_api
@@ -25,6 +26,20 @@ def home(request):
     paginator = Paginator(datas, 12) # Show 25 contacts per page
     page = request.GET.get('page')
     data = paginator.get_page(page)
+    if request.is_ajax():
+        page = request.GET.get('page')
+        data = paginator.get_page(page)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        print(data.object_list)
+        tp = serializers.serialize('json', data.object_list)
+        params = {'datas':tp,}
+        return JsonResponse(params)
+    print("Not ajax")
 
     params = {'datas':data, 'range':range(6)}
     print(params['datas'])

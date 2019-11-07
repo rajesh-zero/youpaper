@@ -50,11 +50,9 @@
     </div>
 
     </div>
-    <div>
 
-    </div>
+<div style="text-align:center">testing center</div>
 
-<div>
 <div class="pagination">
     <span class="step-links">
         {% if datas.has_previous %}
@@ -71,8 +69,7 @@
             <a href="?page={{ datas.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
-</div>        
-
+</div>       
 </div>
 
     {% endif %}
@@ -81,14 +78,36 @@
 
 {% block js %}
     <script>
-         var typed = new Typed('#typed',{
-                        strings:["Welcome!","Sign up to explore!"],
-                        backSpeed: 15,
-                        smartBackspace: true,
-                        backDelay: 1200,
-                        startDelay: 1000,
-                        typeSpeed: 25,
-                        loop: true,
-                      });
+    window.onscroll = function(ev) {
+        if(window.innerHeight+window.scrollY >= (document.body.offsetHeight)-1){
+        console.log("bacchi pohuch gaya niche");
+        console.log("loading");
+        $.ajax(
+            {
+                type:"GET",
+                url:"/",
+                data:{
+                     page:2,
+                },
+                success: function( data ){
+                    console.log(data);
+                }
+            }
+        )
+        }
+    };
+        //if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+          //  alert("you're at the bottom of the page");
+        //}
+   // };
+     var typed = new Typed('#typed',{
+                    strings:["Welcome!","Sign up to explore!"],
+                    backSpeed: 15,
+                    smartBackspace: true,
+                    backDelay: 1200,
+                    startDelay: 1000,
+                    typeSpeed: 25,
+                    loop: true,
+                  });
     </script>
 {% endblock %}
