@@ -112,3 +112,11 @@ def watch(request):
         html_attributes['innerHTML'] = 'Add to Watchlist'
         return JsonResponse(html_attributes)
     return HttpResponse('<h1>somethings wrong</h1>')
+
+def ajaxremovewatchlist(request):
+    """ajaxremovewatchedlist"""
+    return HttpResponse("ajaxremovewatchlist")
+
+def ajaxremovewatchedlist(request):
+    """ajaxremovewatchlist"""
+    return HttpResponse("ajaxremovewatchedlist")

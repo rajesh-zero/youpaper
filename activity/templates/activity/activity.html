@@ -75,6 +75,7 @@ $('.button_remove').click(function(){
     row_id = $(this.parentNode.parentNode).attr("id");
     document.getElementById(row_id).setAttribute("style", "display: none;");
     console.log(button_id +" "+row_id);
+    console.log(' {% url "ajaxremovewatchedlist" %} ')
 })
 </script>
 {% endblock %}
