@@ -53,7 +53,39 @@ vim youpaper/settings.py
         }
     }
 
+    STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
 python manage.py makemigrations
 python manage.py migrate
+python manage.py createsuperuser
+python manage.py collectstatic
 sudo ufw allow 8000
 python manage.py runserver 0.0.0.0:8000
+
+-----------------------for wsgi to host on apache2-------------------
+
+sudo vim /etc/apache2/sites-available/000-default.conf
+
+<VirtualHost *:80>
+    . . .
+
+    Alias /static /home/rajesh/youpaper/static
+    <Directory /home/rajesh/youpaper/static>
+        Require all granted
+    </Directory>
+
+    <Directory /home/rajesh/youpaper/youpaper>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
+
+    WSGIDaemonProcess youpaper python-path=/home/rajesh/youpaper python-home=/home/rajesh/youpaper/env
+    WSGIProcessGroup youpaper
+    WSGIScriptAlias / /home/rajesh/youpaper/youpaper/wsgi.py
+
+</VirtualHost>
+
+sudo service apache2 restart
+
+-------------------------------------------------------------------------------
