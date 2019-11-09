@@ -35,7 +35,7 @@ def home(request):
             data = paginator.page(1)
         except EmptyPage:
             data = paginator.page(paginator.num_pages)
-        print(data.object_list)
+        #print(data.object_list)
         tp = serializers.serialize('json', data.object_list)
         params = {'datas':tp,}
         return JsonResponse(params)

@@ -16,25 +16,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-            <button class="btn btn-outline-dark btn-block" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true">Watchlist ({{watchlist_data|length}})</button>
+            <button class="btn btn-outline-primary btn-block" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true">Watchlist (<span id='watch_id_count' count="{{watchlist_data|length}}">{{watchlist_data|length}}</span>)</button>
+            <hr>
             <div class="collapse show" id='collapseExample'>
                 <table class='table'>
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Title</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
                     <tbody>
                     {% for data in watchlist_data %}
                     <tr id='watchlist_{{forloop.counter}}'>
-                        <td>{{forloop.counter}}</td>
+                        <td><img style=" width: 60px; " src="{{data.ypdb_poster}}" alt="{{data.ypdb_title}}"></td>
                         <td> 
                             <a href="/ypdb/view/?t={{data.ypdb_title}}&id={{data.ypdb_id}}"> {{data.ypdb_title}} </a> 
                         </td>
                         <td>
-                            <button id='button_watch_{{forloop.counter}}' class="button_remove btn btn-light"  watched_id='{{data.watch_id}}'>Remove</button>
+                            <button id='button_watch_{{forloop.counter}}' class="button_remove btn btn-light"  watch_id="{{data.watchlist_id}}">Remove</button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -49,10 +43,24 @@
 {% block js %}
     <script type="text/javascript">
     $('.button_remove').click(function(){
-        button_id = $(this).attr("id");
-        row_id = $(this.parentNode.parentNode).attr("id");
-        document.getElementById(row_id).setAttribute("style", "display: none;");
-        console.log(button_id +" "+row_id);
+        let watch_id = $(this).attr("watch_id");
+        let row_id = $(this.parentNode.parentNode).attr("id");
+        let watch_count = document.getElementById('watch_id_count').innerText;
+        watch_count = watch_count-1;
+        $.ajax(
+            {
+                type:"GET",
+                url:"{% url 'ajaxremovewatchlist' %}",
+                data:{
+                    watchid: watch_id,
+                },
+                success: function(data){
+                    document.getElementById(row_id).setAttribute("style", "display: none;");
+                    document.getElementById('watch_id_count').innerHTML = watch_count;
+                    console.log(data["status"]);
+                }
+            }
+        );
     })
     </script>
 {% endblock %}

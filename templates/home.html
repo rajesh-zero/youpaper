@@ -30,14 +30,12 @@
     <div>
         <div class = 'row'>
         {% for obj in datas|slice:"0:" %}
-            <div class="col-md-2">
-             <div class="card mb-2">
-                <img class="card-img-top "  src="{{obj.ypdb_poster}}" alt="Card image cap"  onerror="this.parentNode.parentNode.style.display='none'">
+            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
+                <img style="width: 150px;"  src="{{obj.ypdb_poster}}" alt="Card image cap"  onerror="this.parentNode.parentNode.style.display='none'">
                 <div class="card-body">
-                   <h5 class="card-title">{{obj.ypdb_title}}</h5>
+                   <h6 class="card-title">{{obj.ypdb_title}}</h6>
                    <a {# gererating url with parameters#} href="/ypdb/view/?t={{obj.ypdb_title}}&id={{obj.ypdb_id}}" class="btn     btn-outline-dark btn-sm">Read more</a>
                 </div>
-            </div>
         </div>
         {# if the the forloop counter is divisible by 4, close the <li> tag and open a new one #}
         {% comment %} {% if forloop.counter|divisibleby:6 %}

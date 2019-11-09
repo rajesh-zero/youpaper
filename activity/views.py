@@ -40,7 +40,7 @@ def watchedlist(request):
     data = Watched.objects.select_related().filter(user_id=request.session['user_id'])
     watched_data = []
     for i in data:
-        watched_data.append({'watched_id':i.watched_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title})
+        watched_data.append({'watched_id':i.watched_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title, 'ypdb_poster':i.ypdb_id.ypdb_poster})
     params['watched_data'] = watched_data #adding these data in params dictionary
     return render(request, 'activity/watchedlist.html',params)
 
@@ -53,7 +53,7 @@ def watchlist(request):
     data = Watchlist.objects.select_related().filter(user_id=request.session['user_id'])
     watchlist_data = []
     for i in data:
-        watchlist_data.append({'watchlist_id':i.watchlist_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title})
+        watchlist_data.append({'watchlist_id':i.watchlist_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title, 'ypdb_poster':i.ypdb_id.ypdb_poster})
     params['watchlist_data'] = watchlist_data #adding these data in params dictionary
     return render(request, 'activity/watchlist.html',params)
 
@@ -115,8 +115,36 @@ def watch(request):
 
 def ajaxremovewatchlist(request):
     """ajaxremovewatchedlist"""
-    return HttpResponse("ajaxremovewatchlist")
+    if request.session['user_email'] == '':
+        return redirect('/login/')
+    if request.is_ajax():
+        result = {}
+        result['status'] = 'failure'
+        print("This is ajax")
+        watchlist_id = request.GET['watchid']
+        try:
+            Watchlist.objects.filter(watchlist_id=watchlist_id).delete()
+            result['status'] = 'success'
+        except Watchlist.DoesNotExist:
+            pass
+    else:
+        print("Not ajax")
+    return JsonResponse(result)
 
 def ajaxremovewatchedlist(request):
     """ajaxremovewatchlist"""
-    return HttpResponse("ajaxremovewatchedlist")
+    if request.session['user_email'] == '':
+        return redirect('/login/')
+    if request.is_ajax():
+        result = {}
+        result['status'] = 'failure'
+        print("This is ajax")
+        watched_id = request.GET['watchedid']
+        try:
+            Watched.objects.filter(watched_id=watched_id).delete()
+            result['status'] = 'success'
+        except Watched.DoesNotExist:
+            pass
+    else:
+        print("Not ajax")
+    return JsonResponse(result)

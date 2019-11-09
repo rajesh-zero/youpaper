@@ -8,6 +8,6 @@ urlpatterns = [
     path('watch/', views.watch, name="activity"),
     path('watchedlist/', views.watchedlist, name="activity"),
     path('watchlist/', views.watchlist, name="activity"),
-    path('ajaxremovewatchlist/', views.ajaxremovewatchlist, name="activity"),
+    path('ajaxremovewatchlist/', views.ajaxremovewatchlist, name="ajaxremovewatchlist"),
     path('ajaxremovewatchedlist/', views.ajaxremovewatchedlist, name="ajaxremovewatchedlist"), #name kaam ka hai bc {% url '' %} ke liye
 ]
