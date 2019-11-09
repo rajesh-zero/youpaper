@@ -42,7 +42,6 @@ def home(request):
     print("Not ajax")
 
     params = {'datas':data, 'range':range(6)}
-    print(params['datas'])
     return render(request, 'home.html', params)
 def contactus(request):
     '''doc string'''
