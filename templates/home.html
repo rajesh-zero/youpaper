@@ -31,7 +31,7 @@
         <div class = 'row'>
         {% for obj in datas|slice:"0:" %}
             <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
-                <img style="width: 150px;"  src="{{obj.ypdb_poster}}" alt="Card image cap"  onerror="this.parentNode.parentNode.style.display='none'">
+                <img style="width: 150px;"  src="{{obj.ypdb_poster}}" alt="Card image cap"  onerror="this.parentNode.style.display='none'">
                 <div class="card-body">
                    <h6 class="card-title">{{obj.ypdb_title}}</h6>
                    <a {# gererating url with parameters#} href="/ypdb/view/?t={{obj.ypdb_title}}&id={{obj.ypdb_id}}" class="btn     btn-outline-dark btn-sm">Read more</a>
