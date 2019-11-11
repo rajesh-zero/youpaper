@@ -31,18 +31,21 @@ def home(request):
         data = paginator.get_page(page)
         try:
             data = paginator.page(page)
+            params = {'datas':data, 'range':range(6), 'page':page}
         except PageNotAnInteger:
             data = paginator.page(1)
         except EmptyPage:
             data = paginator.page(paginator.num_pages)
         #print(data.object_list)
-        tp = serializers.serialize('json', data.object_list)
-        params = {'datas':tp,}
-        return JsonResponse(params)
+        # tp = serializers.serialize('json', data.object_list)
+        # params = {'datas':tp,}
+        # return JsonResponse(params)
+        return render(request, 'ajaxhomedata.html', params)
     print("Not ajax")
 
     params = {'datas':data, 'range':range(6)}
     return render(request, 'home.html', params)
+
 def contactus(request):
     '''doc string'''
     return HttpResponse("contact us")
