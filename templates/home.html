@@ -28,7 +28,7 @@
 
     <div>
     <div>
-        <div class = 'row'>
+        <div id="homedata" class = 'row' nextpage="{{nextpage}}">
         {% for obj in datas|slice:"0:" %}
             <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
                 <img style="width: 150px;"  src="{{obj.ypdb_poster}}" alt="Card image cap"  onerror="this.parentNode.style.display='none'">
@@ -45,13 +45,24 @@
 
         {% endfor %}
 
-    <div class="row loadhere" id=''>
-
-    </div>
         
 
         </div>
-    </div>      
+    </div>   
+
+    <center>
+
+
+				<div id="load_anim" style="display: none;">
+                {% load static %}
+					<img height="50px" src="{% static '2.gif' %}">
+				</div>
+				<div id="load_end" style="display: none;">
+                <h4>END of Page</h4>
+				</div>
+			
+			</center>
+
     </div>
 
     </div>
@@ -84,26 +95,43 @@
 
 {% block js %}
     <script>
+
+
     window.onscroll = function(ev) {
-        if(window.innerHeight+window.scrollY >= (document.body.offsetHeight)-1){
+        if ((window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 1)){
         console.log("bacchi pohuch gaya niche");
         console.log("loading");
-        $.ajax(
+        nextpage = document.getElementById("homedata").getAttribute("nextpage");
+        console.log(nextpage);
+        if (nextpage <= {{ datas.paginator.num_pages }} ){
+            document.getElementById("load_anim").setAttribute("style", "display: block;");
+$.ajax(
             {
                 type:"GET",
                 url:"/",
                 data:{
-                     page:2,
+                     page:nextpage,
                 },
                 success: function( data ){
-                    var x = document.getElementsByClassName("loadhere");
-                    x[0].innerHTML = data;
-                    x[0].setAttribute("class", "row");
+                    document.getElementById("homedata").innerHTML += data;
+                    document.getElementById("homedata").setAttribute("nextpage", Number(nextpage)+Number(1));
+                    document.getElementById("load_anim").setAttribute("style", "display: none;");
+                    console.log("data");
+                    //var x = document.getElementsByClassName("loadhere");
+                    //x[0].innerHTML = data;
+                    //x[0].setAttribute("class", "row");
                    // document.getElementsByClassName('loadhere').innerHTML=data;
-                    console.log(data);
+                   //var textnode = document.createElement(data);
+                   // node.appendChild(textnode);
                 }
             }
         )
+        }
+        else{
+            document.getElementById("load_end").setAttribute("style", "display: block;");
+        }
+        
+        
         }
     };
         //if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
