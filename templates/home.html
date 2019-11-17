@@ -16,6 +16,7 @@
             <h1><span id="typed"></span></h1>
         </div>
     </div>
+
     {% else %}
 
     <div class="container">
@@ -25,71 +26,31 @@
        <h3 class="pb-3 mb-4 font-italic border-bottom">
           Find awesomeness below
        </h3>
-
-    <div>
-    <div>
         <div id="homedata" class = 'row' nextpage="{{nextpage}}">
         {% for obj in datas|slice:"0:" %}
             <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
-                <img style="width: 150px;"  src="{{obj.ypdb_poster}}" alt="Card image cap"  onerror="this.parentNode.style.display='none'">
+                <img style="width: 150px;"  src="{{obj.ypdb_poster}}" alt="Card image cap"     onerror="this.parentNode.style.display='none'">
                 <div class="card-body">
                    <h6 class="card-title">{{obj.ypdb_title}}</h6>
-                   <a {# gererating url with parameters#} href="/ypdb/view/?t={{obj.ypdb_title}}&id={{obj.ypdb_id}}" class="btn     btn-outline-dark btn-sm">Read more</a>
+                   <a {# gererating url with parameters#} href="/ypdb/view/?t={{obj.ypdb_title}}&id={{obj.ypdb_id}}" class="btn        btn-outline-dark btn-sm">Read more</a>
                 </div>
-        </div>
-        {# if the the forloop counter is divisible by 4, close the <li> tag and open a new one #}
-        {% comment %} {% if forloop.counter|divisibleby:6 %}
-
-        {% endif %} {% endcomment %}
-
-
+            </div>
         {% endfor %}
-
-        
-
         </div>
-    </div>   
 
-    <center>
-
-
-				<div id="load_anim" style="display: none;">
+        <center>
+	    	<div id="load_anim" style="display: none;">
                 {% load static %}
-					<img height="50px" src="{% static '2.gif' %}">
-				</div>
-				<div id="load_end" style="display: none;">
-                <h4>END of Page</h4>
-				</div>
-			
-			</center>
-
-    </div>
-
-    </div>
-
-
-
-
-<div class="pagination">
-    <span class="step-links">
-        {% if datas.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ datas.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ datas.number }} of {{ datas.paginator.num_pages }}.
-        </span>
-
-        {% if datas.has_next %}
-            <a href="?page={{ datas.next_page_number }}">next</a>
-            <a href="?page={{ datas.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>       
+	    		<img height="150px" src="{% static 'loading.gif' %}">
+	    	</div>
+	    	<div id="load_end" style="display: none;">
+            <hr>
+                <p>END</p>
+	    	</div>			
+	    </center>
+    </div>     
 </div>
-
-    {% endif %}
+{% endif %}
         <br>
 {% endblock %}
 
@@ -103,41 +64,30 @@
         console.log("loading");
         nextpage = document.getElementById("homedata").getAttribute("nextpage");
         console.log(nextpage);
-        if (nextpage <= {{ datas.paginator.num_pages }} ){
+        if (nextpage <= {{ datas.paginator.num_pages }}){
             document.getElementById("load_anim").setAttribute("style", "display: block;");
-$.ajax(
-            {
-                type:"GET",
-                url:"/",
-                data:{
-                     page:nextpage,
-                },
-                success: function( data ){
-                    document.getElementById("homedata").innerHTML += data;
-                    document.getElementById("homedata").setAttribute("nextpage", Number(nextpage)+Number(1));
-                    document.getElementById("load_anim").setAttribute("style", "display: none;");
-                    console.log("data");
-                    //var x = document.getElementsByClassName("loadhere");
-                    //x[0].innerHTML = data;
-                    //x[0].setAttribute("class", "row");
-                   // document.getElementsByClassName('loadhere').innerHTML=data;
-                   //var textnode = document.createElement(data);
-                   // node.appendChild(textnode);
+            $.ajax(
+                {
+                    type:"GET",
+                    url:"/",
+                    data:{
+                         page:nextpage,
+                    },
+                    success: function( data ){
+                        document.getElementById("homedata").innerHTML += data;
+                        document.getElementById("homedata").setAttribute("nextpage", Number(nextpage)+Number(1));
+                        document.getElementById("load_anim").setAttribute("style", "display: none;");
+                        console.log("data");
+                    }
                 }
-            }
-        )
+            )     
         }
         else{
             document.getElementById("load_end").setAttribute("style", "display: block;");
         }
-        
-        
         }
     };
-        //if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-          //  alert("you're at the bottom of the page");
-        //}
-   // };
+        
      var typed = new Typed('#typed',{
                     strings:["Welcome!","Sign up to explore!"],
                     backSpeed: 15,
@@ -146,6 +96,6 @@ $.ajax(
                     startDelay: 1000,
                     typeSpeed: 25,
                     loop: true,
-                  });
+    });
     </script>
 {% endblock %}

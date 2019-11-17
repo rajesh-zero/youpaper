@@ -21,7 +21,7 @@ def home(request):
     #     print('if ke andhar hai')
     # else:
     #     request.session['user_email'] = ''
-    datas = Ypdb.objects.filter(~Q(ypdb_poster='N/A')).order_by('-ypdb_id')[:100]#to get only last 20records with images in descending order
+    datas = Ypdb.objects.filter(~Q(ypdb_poster='N/A')).order_by('-ypdb_id')[:100]#to get only last 100records with images in descending order
     #print(datas)
     paginator = Paginator(datas, 12) # Show 6 contacts per page
     page = request.GET.get('page')
