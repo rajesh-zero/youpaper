@@ -9,6 +9,13 @@ https://www.digitalocean.com/community/tutorials/how-to-serve-django-application
 
 
 
+-------------------------ufw settings on linux vm-----------------------------------------------------
+sudo vim /etc/default/ufw #IPV6=yes
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh or sudo ufw allow 22
+sudo ufw enable
+
 -----------------------installing pip postgresql and apache2-------------------
 sudo apt update
 sudo apt install python3-pip
