@@ -1,86 +1,71 @@
-{% extends 'login/master.html' %}
-
-{% block head %} 
-
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"   integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-    <style>   
-    .social-card-header{
-        position: relative;
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-        height: 96px;
-    }
-    .social-card-header i {
-        font-size: 32px;
-        color:#FFF;
-    }
-    .bg-facebook {
-        background-color:#3b5998;
-    }
-    .text-facebook {
-        color:#3b5998;
-    }
-    .bg-google-plus{
-        background-color:#dd4b39;
-    }
-    .text-google-plus {
-        color:#dd4b39;
-    }
-    .bg-twitter {
-        background-color:#1da1f2;
-    }
-    .text-twitter {
-        color:#1da1f2;
-    }
-    .bg-pinterest {
-        background-color:#bd081c;
-    }
-    .text-pinterest {
-        color:#bd081c;
-    }
-    .share:hover {
-            text-decoration: none;
-        opacity: 0.8;
-    }
-    </style>
-    
-{% endblock %}
+{% extends 'master.html' %}
 
 {% block content %}
 
- 
-<div class="container">
-   <h3 class="pb-3 mb-4 font-italic border-bottom">
-      Card Styles
-   </h3>
-   {% for i in '0123456789'|make_list %}
-   <div class="row">
-   {% for i in '012345'|make_list %}
-
-      <div class="col-md-2">
-         <div class="card mb-2">
-            <img class="card-img-top " style='height:200px ; object-fit: cover' src="//placeimg.com/290/180/any" alt="Card image cap">
-            <div class="card-body">
-               <h5 class="card-title">Card title</h5>
-              <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>--> 
-               <a href="http://www.jquery2dotnet.com/" class="btn btn-outline-dark btn-sm">Go somewhere</a>
-            </div>
-         </div>
-      </div>
-    {% endfor %}
-   </div>
-   {% endfor %}
+<br>
+<div class='container'>
+	{% comment %} 
+	Getting messages from view to display here
+	https://docs.djangoproject.com/en/2.2/ref/contrib/messages/ 
+	{% endcomment %}
+	{% if messages %}
+	    {% for message in messages %}
+		<div class="alert alert-info alert-dismissible">
+	  <button type="button" class="close" data-dismiss="alert">&times;</button>
+	  <strong {% if message.tags %} class="{{ message.tags }}"{% endif %} >! </strong>{{ message }}
+		</div>
+	    {% endfor %}
+	{% endif %}
+	<div class="jumbotron col-sm-6">
+	<br>
+	<h3>Register</h3>
+		<form action="/login/registered/"  method="POST">
+	  		{% csrf_token %}
+	  		<div class="form-group">
+			    <input class="form-control" placeholder="Full name" name="name" type="text">
+			</div>
+	  		<div class="form-group">
+			    <input id="emailid" class="form-control" placeholder="yourmail@example.com" name="email" type="text">
+			</div>
+			<div class="form-group">
+				<input class="form-control" placeholder="Password" name="password" type="password" value="">
+			</div>
+			<div class="form-group">
+				<input class="form-control" placeholder="Confirm Password" name="confirmpassword" type="password" value="">
+			</div>
+	    	<div class="checkbox">
+	    		<label>
+	    			<input name="remember" type="checkbox"> I agree to all terms & conditions.
+	    		</label>
+	    	</div>
+			<input class="btn btn-lg btn-success btn-block" type="submit" value="Register">
+		</form>
+	</div>
 </div>
- 
 
+{% endblock  %}
+
+{% block js %}
+<script>
+//https://stackoverflow.com/questions/6153047/detect-changed-input-text-box
+var timerid;
+$("#emailid").on("input", function(e) {
+  var value = $(this).val();
+  if ($(this).data("lastval") != value) {
+
+    $(this).data("lastval", value);
+    clearTimeout(timerid);
+
+    timerid = setTimeout(function() {
+    //your change action goes here 
+	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	if(value.match(mailformat))
+	{
+		console.log("SAHI HAI");
+	}
+    console.log(value);
+    }, 500);
+  };
+});
+</script>
 {% endblock %}

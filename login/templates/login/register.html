@@ -25,7 +25,7 @@
 			    <input class="form-control" placeholder="Full name" name="name" type="text">
 			</div>
 	  		<div class="form-group">
-			    <input class="form-control" placeholder="yourmail@example.com" name="email" type="text">
+			    <input id="emailid" class="form-control" placeholder="yourmail@example.com" name="email" type="text">
 			</div>
 			<div class="form-group">
 				<input class="form-control" placeholder="Password" name="password" type="password" value="">
@@ -35,7 +35,7 @@
 			</div>
 	    	<div class="checkbox">
 	    		<label>
-	    			<input name="remember" type="checkbox"> I agree all conditions
+	    			<input name="remember" type="checkbox"> I agree to all terms & conditions.
 	    		</label>
 	    	</div>
 			<input class="btn btn-lg btn-success btn-block" type="submit" value="Register">
@@ -44,3 +44,28 @@
 </div>
 
 {% endblock  %}
+
+{% block js %}
+<script>
+//https://stackoverflow.com/questions/6153047/detect-changed-input-text-box
+var timerid;
+$("#emailid").on("input", function(e) {
+  var value = $(this).val();
+  if ($(this).data("lastval") != value) {
+
+    $(this).data("lastval", value);
+    clearTimeout(timerid);
+
+    timerid = setTimeout(function() {
+    //your change action goes here 
+	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	if(value.match(mailformat))
+	{
+		console.log("SAHI HAI");
+	}
+    console.log(value);
+    }, 500);
+  };
+});
+</script>
+{% endblock %}
