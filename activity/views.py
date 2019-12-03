@@ -7,55 +7,41 @@ from login.models import User  #importing models that i created in login models.
 from ypdb.models import Ypdb #importing models that i created in ypdb models.py
 
 # Create your views here.
-def activity(request):
-    """activity function"""
+def ajaxremovewatchlist(request):
+    """ajaxremovewatchedlist"""
     if request.session['user_email'] == '':
         return redirect('/login/')
-    #page_data = Watched.objects.select_related('ypdb_id').filter(user_id=request.session['user_id'])
-    '''https://stackoverflow.com/questions/43772163/how-to-join-3-tables-in-query-with-django'''
-    params = {}
-    data = Watched.objects.select_related().filter(user_id=request.session['user_id'])
-    watched_data = []
-    """https://stackoverflow.com/questions/25150955/python-iterating-through-object-attributes/38834900
-    for i, j in data.__dict__.items():
-        print(i, j)
-    """
-    for i in data:
-        watched_data.append({'watched_id':i.watched_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title})
-    params['watched_data'] = watched_data #adding these data in params dictionary
+    if request.is_ajax():
+        result = {}
+        result['status'] = 'failure'
+        print("This is ajax")
+        watchlist_id = request.GET['watchid']
+        try:
+            Watchlist.objects.filter(watchlist_id=watchlist_id).delete()
+            result['status'] = 'success'
+        except Watchlist.DoesNotExist:
+            pass
+    else:
+        print("Not ajax")
+    return JsonResponse(result)
 
-    data = Watchlist.objects.select_related().filter(user_id=request.session['user_id'])
-    watchlist_data = []
-    for i in data:
-        watchlist_data.append({'watchlist_id':i.watchlist_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title})
-    params['watchlist_data'] = watchlist_data #adding these data in params dictionary
-    return render(request, 'activity/activity.html', params)
-
-def watchedlist(request):
-    """load watchedlist page"""
+def ajaxremovewatchedlist(request):
+    """ajaxremovewatchlist"""
     if request.session['user_email'] == '':
         return redirect('/login/')
-    params = {}
-    '''https://stackoverflow.com/questions/43772163/how-to-join-3-tables-in-query-with-django'''
-    data = Watched.objects.select_related().filter(user_id=request.session['user_id'])
-    watched_data = []
-    for i in data:
-        watched_data.append({'watched_id':i.watched_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title, 'ypdb_poster':i.ypdb_id.ypdb_poster})
-    params['watched_data'] = watched_data #adding these data in params dictionary
-    return render(request, 'activity/watchedlist.html',params)
-
-def watchlist(request):
-    """load watchlist page"""
-    if request.session['user_email'] == '':
-        return redirect('/login/')
-    params = {}
-    '''https://stackoverflow.com/questions/43772163/how-to-join-3-tables-in-query-with-django'''
-    data = Watchlist.objects.select_related().filter(user_id=request.session['user_id'])
-    watchlist_data = []
-    for i in data:
-        watchlist_data.append({'watchlist_id':i.watchlist_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title, 'ypdb_poster':i.ypdb_id.ypdb_poster})
-    params['watchlist_data'] = watchlist_data #adding these data in params dictionary
-    return render(request, 'activity/watchlist.html',params)
+    if request.is_ajax():
+        result = {}
+        result['status'] = 'failure'
+        print("This is ajax")
+        watched_id = request.GET['watchedid']
+        try:
+            Watched.objects.filter(watched_id=watched_id).delete()
+            result['status'] = 'success'
+        except Watched.DoesNotExist:
+            pass
+    else:
+        print("Not ajax")
+    return JsonResponse(result)
 
 def watched(request):
     """activity function"""
@@ -113,38 +99,52 @@ def watch(request):
         return JsonResponse(html_attributes)
     return HttpResponse('<h1>somethings wrong</h1>')
 
-def ajaxremovewatchlist(request):
-    """ajaxremovewatchedlist"""
+def watchlist(request):
+    """load watchlist page"""
     if request.session['user_email'] == '':
         return redirect('/login/')
-    if request.is_ajax():
-        result = {}
-        result['status'] = 'failure'
-        print("This is ajax")
-        watchlist_id = request.GET['watchid']
-        try:
-            Watchlist.objects.filter(watchlist_id=watchlist_id).delete()
-            result['status'] = 'success'
-        except Watchlist.DoesNotExist:
-            pass
-    else:
-        print("Not ajax")
-    return JsonResponse(result)
+    params = {}
+    '''https://stackoverflow.com/questions/43772163/how-to-join-3-tables-in-query-with-django'''
+    data = Watchlist.objects.select_related().filter(user_id=request.session['user_id'])
+    watchlist_data = []
+    for i in data:
+        watchlist_data.append({'watchlist_id':i.watchlist_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title, 'ypdb_poster':i.ypdb_id.ypdb_poster})
+    params['watchlist_data'] = watchlist_data #adding these data in params dictionary
+    return render(request, 'activity/watchlist.html',params)
 
-def ajaxremovewatchedlist(request):
-    """ajaxremovewatchlist"""
+def watchedlist(request):
+    """load watchedlist page"""
     if request.session['user_email'] == '':
         return redirect('/login/')
-    if request.is_ajax():
-        result = {}
-        result['status'] = 'failure'
-        print("This is ajax")
-        watched_id = request.GET['watchedid']
-        try:
-            Watched.objects.filter(watched_id=watched_id).delete()
-            result['status'] = 'success'
-        except Watched.DoesNotExist:
-            pass
-    else:
-        print("Not ajax")
-    return JsonResponse(result)
+    params = {}
+    '''https://stackoverflow.com/questions/43772163/how-to-join-3-tables-in-query-with-django'''
+    data = Watched.objects.select_related().filter(user_id=request.session['user_id'])
+    watched_data = []
+    for i in data:
+        watched_data.append({'watched_id':i.watched_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title, 'ypdb_poster':i.ypdb_id.ypdb_poster})
+    params['watched_data'] = watched_data #adding these data in params dictionary
+    return render(request, 'activity/watchedlist.html',params)
+
+def activity(request):
+    """activity function"""
+    if request.session['user_email'] == '':
+        return redirect('/login/')
+    #page_data = Watched.objects.select_related('ypdb_id').filter(user_id=request.session['user_id'])
+    '''https://stackoverflow.com/questions/43772163/how-to-join-3-tables-in-query-with-django'''
+    params = {}
+    data = Watched.objects.select_related().filter(user_id=request.session['user_id'])
+    watched_data = []
+    """https://stackoverflow.com/questions/25150955/python-iterating-through-object-attributes/38834900
+    for i, j in data.__dict__.items():
+        print(i, j)
+    """
+    for i in data:
+        watched_data.append({'watched_id':i.watched_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title})
+    params['watched_data'] = watched_data #adding these data in params dictionary
+
+    data = Watchlist.objects.select_related().filter(user_id=request.session['user_id'])
+    watchlist_data = []
+    for i in data:
+        watchlist_data.append({'watchlist_id':i.watchlist_id, 'user_id':i.user_id.user_id, 'ypdb_id':i.ypdb_id.ypdb_id, 'ypdb_title':i.ypdb_id.ypdb_title})
+    params['watchlist_data'] = watchlist_data #adding these data in params dictionary
+    return render(request, 'activity/activity.html', params)

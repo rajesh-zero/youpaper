@@ -8,14 +8,12 @@
 	Getting messages from view to display here
 	https://docs.djangoproject.com/en/2.2/ref/contrib/messages/ 
 	{% endcomment %}
-	{% if messages %}
-	    {% for message in messages %}
-		<div class="alert alert-info alert-dismissible">
+	<div id="validationmessage" style="display: none;">
+	<div class="alert alert-info alert-dismissible">
 	  <button type="button" class="close" data-dismiss="alert">&times;</button>
-	  <strong {% if message.tags %} class="{{ message.tags }}"{% endif %} >! </strong>{{ message }}
+	  <strong class="">! </strong> SAHI hai
 		</div>
-	    {% endfor %}
-	{% endif %}
+	</div>
 	<div class="jumbotron col-sm-6">
 	<br>
 	<h3>Register</h3>
@@ -61,6 +59,8 @@ $("#emailid").on("input", function(e) {
 	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	if(value.match(mailformat))
 	{
+		//document.getElementById("validationmessage").innerHTML += "";
+		document.getElementById("validationmessage").setAttribute("style", "display: block;");
 		console.log("SAHI HAI");
 	}
     console.log(value);

@@ -7,42 +7,10 @@ from login.models import User
 from login.forms import UserForm
 # Create your views here.
 
-def login(request):
-    """
-    takes you to login page if session is empty
-    """
-    if request.session['user_email'] != '':
-        return redirect('/')
-    return render(request, 'login/login.html')
-
-def logout(request):
-    """logout function"""
-    request.session['user_email'] = ''
-    return redirect('/')
-
 def test(request):
     """test function"""
     print(request.session)
-    return HttpResponse("test function")
-
-def profile(request):
-    """profile page function"""
-    params = {}
-    try:
-        user_data = User.objects.get(user_email=request.session['user_email'])
-        params = {'data': user_data}
-    except User.DoesNotExist:
-        pass
-    return render(request, 'login/profile.html', params)
-
-
-def register(request):
-    """
-    takes you to register page
-    """
-    if request.session['user_email'] != '':
-        return redirect('/')
-    return render(request, 'login/register.html')
+    return render(request, 'login/test.html')
 
 def updateprofile(request):
     """
@@ -58,7 +26,6 @@ def updateprofile(request):
             form.save()
         return render(request, 'login/updateprofile.html', {'forms':form})
     return render(request, 'login/register.html')
-
 
 def updateuserdata(request):
     """
@@ -131,4 +98,34 @@ def registered(request):
             pass
     messages.info(request, 'something went wrong try again')
     return HttpResponseRedirect('/login/register/')
-    
+
+def profile(request):
+    """profile page function"""
+    params = {}
+    try:
+        user_data = User.objects.get(user_email=request.session['user_email'])
+        params = {'data': user_data}
+    except User.DoesNotExist:
+        pass
+    return render(request, 'login/profile.html', params)
+
+def register(request):
+    """
+    takes you to register page
+    """
+    if request.session['user_email'] != '':
+        return redirect('/')
+    return render(request, 'login/register.html')
+
+def login(request):
+    """
+    takes you to login page if session is empty
+    """
+    if request.session['user_email'] != '':
+        return redirect('/')
+    return render(request, 'login/login.html')
+
+def logout(request):
+    """logout function"""
+    request.session['user_email'] = ''
+    return redirect('/')
