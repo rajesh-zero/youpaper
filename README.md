@@ -69,6 +69,8 @@ python manage.py collectstatic
 sudo ufw allow 8000
 python manage.py runserver 0.0.0.0:8000
 
+sudo chown -R www-data:www-data /home/rajesh/youpaper/media
+
 -----------------------for wsgi to host on apache2-------------------
 
 sudo vim /etc/apache2/sites-available/000-default.conf
