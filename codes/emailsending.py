@@ -3,10 +3,10 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-YOUPAPER_EMAIL = "officialyoupaper@gmail.com"
-YOUPAPER_PASSWORD = "@OfficialYoupap3r"
+YOUPAPER_EMAIL = ""
+YOUPAPER_PASSWORD = ""
 
-SENDER = "officialyoupaper@gmail.com"
+SENDER = ""
 
 
 def make_and_mail(receiver, subject, body):
